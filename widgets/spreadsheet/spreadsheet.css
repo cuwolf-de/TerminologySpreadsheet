@@ -1,0 +1,45 @@
+.spreadsheet-table {
+   caption-side: bottom;
+   border-collapse: separate;
+   border-spacing: 0;
+   position: relative;
+}
+.spreadsheet-table td {
+   border-bottom: 1px solid rgb(206, 206, 206);
+   border-right: 1px solid rgb(206, 206, 206);
+   min-width: 100px;
+   
+   transition: transform .125s; /* Animation */
+}
+.spreadsheet-table td:hover {
+   /* rgba(130,110,253,0.1); primary with transparent */
+   background-color: rgb(232, 228, 255);
+   
+   border-top: 1px solid rgb(206, 206, 206);
+   border-left: 1px solid rgb(206, 206, 206);
+   z-index: 3;
+   transform: scale(1.08);
+}
+
+.table-header-top {
+   background-color: rgb(231, 231, 231);
+   background-clip: padding-box;
+   text-align: center;
+}
+.table-header-left {
+   background-color: rgb(231, 231, 231);
+   background-clip: padding-box;
+   min-width: 30px !important;
+   text-align: center;
+}
+.table-sticky-top {
+   position: sticky;
+   top: 0px; /* Don't forget this, required for the stickiness */
+}
+.table-sticky-left {
+   position: sticky;
+   left: 0px; /* Don't forget this, required for the stickiness */
+}
+.table-header-corner {
+   z-index: 2;
+}

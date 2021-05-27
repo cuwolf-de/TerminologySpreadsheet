@@ -1,0 +1,77 @@
+/* The Navbar should always stay the same height*/
+.navbar-ownHeight {
+   height: 60px;
+}
+/* A widget that fills out the rest of the page (but resprects the NavBar) */
+.webwidget {
+   position: absolute;
+   left: 0px;
+   right: 0px;
+   bottom: 0px;
+   top: 60px;
+
+   overflow: scroll;
+}
+
+.btn-table-td {
+   width: 100px;
+}
+
+/* ==================================================
+   The Modal will be show some text and act as overlay
+   so you cannot interact with the main website any more.
+   ================================================== */
+.modalContainer {
+   /* needs to be inside a div */
+   padding: 0;
+   margin: 0;
+   display: -webkit-box;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   background-color: rgba(0,0,0,0.6);
+
+   position: absolute;
+   left: 0px;
+   right: 0px;
+   top: 0px;
+   bottom: 0px;
+}
+.modalElem {
+   background-color: #ffffff;
+   border-radius: 3px;
+   padding-left: 20px;
+   padding-right: 20px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+
+   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+
+   /* xs (just col instead of col-sm or similar in bootstrap) max-width: 576px */
+   width: 570px;
+
+}
+@media (min-width: 1200px) { /* xl */
+   .modalElem {
+      width: 900px;
+   }
+}
+@media (min-width: 992px) and (max-width: 1200px) { /* lg */
+   .modalElem {
+      width: 800px;
+   }
+}
+@media (min-width: 768px) and (max-width: 992px) { /* md */
+   .modalElem {
+      width: 700px;
+   }
+}
+@media (min-width: 576px) and (max-width: 768px) { /* sm */
+   .modalElem {
+      width: 570px;
+   }
+}

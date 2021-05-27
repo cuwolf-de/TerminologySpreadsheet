@@ -1,0 +1,3 @@
+[submodule "widgets/icons"]
+	path = widgets/icons
+	url = https://github.com/twbs/icons.git

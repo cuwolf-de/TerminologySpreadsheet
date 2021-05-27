@@ -1,0 +1,1 @@
+document.getElementById("checkJS").style.display = "none";
