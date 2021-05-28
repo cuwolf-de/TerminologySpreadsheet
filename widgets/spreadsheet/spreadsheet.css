@@ -13,12 +13,12 @@
 }
 .spreadsheet-table td:hover {
    /* rgba(130,110,253,0.1); primary with transparent */
-   background-color: rgb(232, 228, 255);
+   background-color: rgb(232, 228, 255) !important;
    
    border-top: 1px solid rgb(206, 206, 206);
    border-left: 1px solid rgb(206, 206, 206);
    z-index: 3;
-   transform: scale(1.08);
+   transform: scaleX(1.05) scaleY(1.18);
 }
 
 .table-header-top {
