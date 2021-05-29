@@ -1,6 +1,7 @@
 /* The Navbar should always stay the same height*/
-.navbar-ownHeight {
+.navbar-own {
    height: 60px;
+   z-index: 50;
 }
 /* A widget that fills out the rest of the page (but resprects the NavBar) */
 .webwidget {

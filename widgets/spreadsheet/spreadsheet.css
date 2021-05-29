@@ -3,34 +3,44 @@
    border-collapse: separate;
    border-spacing: 0;
    position: relative;
+
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 .spreadsheet-table td {
    border-bottom: 1px solid rgb(206, 206, 206);
    border-right: 1px solid rgb(206, 206, 206);
+   padding: 0px;
+
    min-width: 100px;
-   
-   transition: transform .125s; /* Animation */
+   max-width: 250px;
 }
-.spreadsheet-table td:hover {
-   /* rgba(130,110,253,0.1); primary with transparent */
-   background-color: rgb(232, 228, 255) !important;
-   
-   border-top: 1px solid rgb(206, 206, 206);
-   border-left: 1px solid rgb(206, 206, 206);
-   z-index: 3;
-   transform: scaleX(1.05) scaleY(1.18);
+.spreadsheet-table-td-inner {
+   margin: 0px;
+   padding: 1px;
+   overflow: hidden;
+   white-space: nowrap; /* no text wrapping The cell will get wider automatically */
+}
+.spreadsheet-table-td-inner:hover {
+   background-color: rgba(180, 168, 255, 0.25);
 }
 
 .table-header-top {
    background-color: rgb(231, 231, 231);
    background-clip: padding-box;
    text-align: center;
+   z-index: 5;
 }
 .table-header-left {
    background-color: rgb(231, 231, 231);
    background-clip: padding-box;
    min-width: 30px !important;
    text-align: center;
+   z-index: 5;
 }
 .table-sticky-top {
    position: sticky;
@@ -41,5 +51,17 @@
    left: 0px; /* Don't forget this, required for the stickiness */
 }
 .table-header-corner {
-   z-index: 2;
+   z-index: 10;
 }
+
+
+.cellText { font-size: 0.9rem; } /* at least lg */
+/* @media (max-width: 768px) { /* until sm  Normal: 1.2rem 
+   .cellText { font-size: 1.1rem; }
+}
+@media (min-width: 768px) and (max-width: 992px) { /* until md  Normal: 1.4rem 
+   .cellText { font-size: 1.1rem; }
+}
+@media (min-width: 992px) and (max-width: 1200px) { /* until lg  Normal: 1.6rem 
+   .cellText { font-size: 1.1rem; }
+} */

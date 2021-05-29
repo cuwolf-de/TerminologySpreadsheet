@@ -37,7 +37,7 @@
     <div id="spreadsheet" class="webwidget"></div>
 
     <!-- This is the upper navigation bar with logo and File->Save Options etc. -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-ownHeight">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-own">
       <div class="container-fluid bg-dark">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -49,16 +49,25 @@
                 <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#file-earmark"></use></svg> File
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#" onclick="newSpreadSheet();">
+                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#file-earmark"></use></svg> New
+                </a></li>
                 <li><a class="dropdown-item" href="#" onclick="alert('Not implemented yet :-)');">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load
                 </a></li>
-                <li><a class="dropdown-item" href="#" onclick="alert('We have to call a function here :-D');">
+                <hr class="m-1">
+                <li><a class="dropdown-item" href="#" onclick="saveAsCSV();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="alert('We have to call a function here :-D');">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as JSON
                 </a></li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="showHelpTab();">
+                <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#question-circle"></use></svg> Help
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" onclick="showAboutTab();">
@@ -72,7 +81,7 @@
             </li>
           </ul>
         </div>
-        <a class="navbar-brand pull-right navbar-rightt" href="https://allurewebsolutions.com">
+        <a class="navbar-brand pull-right navbar-rightt" href="#">
           Terminology Spreadsheet
           <img src="widgets/main/terminologySpreadsheet.svg" alt="" width="24" height="24" class="d-inline-block align-text-top" style="margin-left: 5px;">
         </a>
@@ -95,7 +104,7 @@
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#caret-right"></use></svg>
                   <span class="d-none d-md-inline">apply</span>
                 </button>
-                <button class="btn btn-success" type="button" >
+                <button class="btn btn-success terminologySearchButton" type="button" >
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#search"></use></svg>
                   <span class="d-none d-md-inline">search</span>
                 </button>
@@ -107,31 +116,21 @@
                 <span class="ms-auto">Search Query</span>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 searchResultContainer">
               <table class="table table-sm">
-                <thead>
+                <thead style="position: sticky; top: 0px; z-index: 10px; background-color: #ffffff">
                   <tr>
                     <th scope="col">Terminology</th>
                     <th scope="col">Source</th>
-                    <th scope="col"></th>
+                    <th scope="col">Apply</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Biene Mayarinus</td>
-                    <td>Hexen-Datenbank</td>
-                    <td class="btn-table-td">
-                      <button type="button" class="btn btn-success btn-sm">
-                        <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#caret-right"></use></svg>
-                        <span class="d-none d-md-inline">apply</span>
-                      </button>
-                    </td>
-                  </tr>
+                <tbody class="searchResults">
                 </tbody>
               </table>
             </div>
             <div class="col-12">
-              <div name="loading" class="d-flex align-items-center">
+              <div name="loading" class="align-items-center loadingSpinner" style="display: none;">
                 <strong>Loading...</strong>
                 <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
               </div>
@@ -140,6 +139,17 @@
         </div>
       </div>
     </div>
+
+    <!-- <tr>
+      <td>Biene Mayarinus</td>
+      <td>Hexen-Datenbank</td>
+      <td class="btn-table-td">
+        <button type="button" class="btn btn-success btn-sm">
+          <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#caret-right"></use></svg>
+          <span class="d-none d-md-inline">apply</span>
+        </button>
+      </td>
+    </tr> -->
 
     <!-- About Tab -->
     <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell -->
@@ -153,7 +163,7 @@
             <div class="col-12 text-center">
               <b>Terminology Spreadsheet</b>
             </div>
-            <div class="col-12 text-center">
+            <div class="col-12 text-center mt-4">
               This program is free software: you can redistribute it and/or modify<br>
               it under the terms of the GNU General Public License as published by<br>
               the Free Software Foundation, either version 3 of the License, or<br>
@@ -168,10 +178,79 @@
               along with this program.  If not, see <a href="http://www.gnu.org/licenses/" target="_blank" rel="noopener noreferrer">http://www.gnu.org/licenses/</a>.
             </div>
           </div>
-          <div class="col-12 text-center">
+          <div class="col-12 text-center mt-4">
             <button class="btn btn-primary" onclick="hideAboutTab();" type="button">
               Ok
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Tab -->
+    <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell -->
+    <div id="helpTab" class="modalContainer" style="display: none;">
+      <div class="modalElem" style="padding-left: 0px; padding-right: 0px; overflow-y: auto;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Mouse / Keyboard</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">F2</span>
+                      <br>
+                      <span class="badge bg-secondary">Double-Click</span>
+                    </td>
+                    <td>
+                      Edit selected Cell(s)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Arrows</span>
+                    </td>
+                    <td>
+                      Move selection of cells
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Shift</span> + <span class="badge bg-secondary">Arrows</span>
+                      <br>
+                      <span class="badge bg-secondary">mouse down, move and mouse up</span>
+                    </td>
+                    <td>
+                      Modify Selection
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Esc</span>
+                    </td>
+                    <td>
+                      collapse selection to most upper left cell
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12 text-center mt-4">
+              <button class="btn btn-primary" onclick="hideHelpTab();" type="button">
+                Ok
+              </button>
+            </div>
           </div>
         </div>
       </div>
