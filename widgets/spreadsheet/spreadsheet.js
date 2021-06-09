@@ -201,6 +201,10 @@ class Spreadsheet {
       };
    }
 
+   /**
+    * 
+    * @param {} selectionArea 
+    */
    selectCells(selectionArea) {
       this.unmarkCellsSelected();
       this.selection = selectionArea;
@@ -338,10 +342,22 @@ class Spreadsheet {
       
       // TODO: data should be text of csv format of cell values accessible via 
       // this.cells[row][column]
-
-      var data = "Hallo";
+      
+      var data = "";
+      for (var row = 0; row < this.cells.length; row++) {
+         for (var column = 0; column < this.cells[row].length; column++) {
+            var celltext = this.cells[row][column].text;
+            data += celltext;
+            if (column < this.cells[row].length-1) {
+               data += ";";
+            } 
+         }
+         if (row < this.cells.length-1) {
+            data += "\n";
+         }
+      }
       var type = "csv";
-      var filename = "testfile";
+      var filename = "testfile.csv";
 
       var file = new Blob([data], {type: type});
       if (window.navigator.msSaveOrOpenBlob) // IE10+

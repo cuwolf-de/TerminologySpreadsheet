@@ -53,13 +53,13 @@
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#file-earmark"></use></svg> New
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="alert('Not implemented yet :-)');">
-                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load
+                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load from JSON
                 </a></li>
                 <hr class="m-1">
-                <li><a class="dropdown-item" href="#" onclick="saveAsCSV();">
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV
                 </a></li>
-                <li><a class="dropdown-item" href="#" onclick="alert('We have to call a function here :-D');">
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportJSON();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as JSON
                 </a></li>
               </ul>
@@ -88,7 +88,7 @@
       </div>
     </nav>
     
-    <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell -->
+    <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell  -->
     <div id="terminologyQuery" class="modalContainer" style="display: none;">
       <div class="modalElem" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
@@ -118,7 +118,7 @@
             </div>
             <div class="col-12 searchResultContainer">
               <table class="table table-sm">
-                <thead style="position: sticky; top: 0px; z-index: 10px; background-color: #ffffff">
+                <thead style="position: sticky; top: 0px; z-index: 10px; background-color: #ffffff;">
                   <tr>
                     <th scope="col">Terminology</th>
                     <th scope="col">Source</th>
@@ -139,17 +139,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <tr>
-      <td>Biene Mayarinus</td>
-      <td>Hexen-Datenbank</td>
-      <td class="btn-table-td">
-        <button type="button" class="btn btn-success btn-sm">
-          <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#caret-right"></use></svg>
-          <span class="d-none d-md-inline">apply</span>
-        </button>
-      </td>
-    </tr> -->
 
     <!-- About Tab -->
     <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell -->
@@ -210,7 +199,18 @@
                       <span class="badge bg-secondary">Double-Click</span>
                     </td>
                     <td>
-                      Edit selected Cell(s)
+                      edit selected cell(s)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Entf</span>
+                      <span class="badge bg-secondary">Backspace</span>
+                    </td>
+                    <td>
+                      remove content of selected cells<br>
+                      (BUG: Backspace will navigate back in Firefox)
                     </td>
                   </tr>
 
@@ -219,7 +219,7 @@
                       <span class="badge bg-secondary">Arrows</span>
                     </td>
                     <td>
-                      Move selection of cells
+                      move current selection of cells
                     </td>
                   </tr>
 
@@ -227,10 +227,12 @@
                     <td>
                       <span class="badge bg-secondary">Shift</span> + <span class="badge bg-secondary">Arrows</span>
                       <br>
-                      <span class="badge bg-secondary">mouse down, move and mouse up</span>
+                      <span class="badge bg-secondary">mouse down, move and mouse up</span> ->
+                      <span class="badge bg-secondary">mouse move</span> ->
+                      <span class="badge bg-secondary">mouse up</span>
                     </td>
                     <td>
-                      Modify Selection
+                      modify current selection of cells
                     </td>
                   </tr>
 
@@ -239,7 +241,7 @@
                       <span class="badge bg-secondary">Esc</span>
                     </td>
                     <td>
-                      collapse selection to most upper left cell
+                      select just single cell
                     </td>
                   </tr>
 
