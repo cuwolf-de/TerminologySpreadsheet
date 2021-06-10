@@ -59,7 +59,7 @@
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(false);">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV
                 </a></li>
-                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(false);">
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(true);">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV (+Info)
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportJSON();">
@@ -191,7 +191,10 @@
             <div class="col-12 text-center">
               <b>Terminology Spreadsheet</b>
             </div>
-            <div class="col-12 text-center mt-4">
+            <div class="col-12 text-center mt-3 small">
+              programmed by <b>Niklas Rausch, Anne Schulte-Kroll, Wolf Weber</b>
+            </div>
+            <div class="col-12 text-center mt-3 small">
               This program is free software: you can redistribute it and/or modify<br>
               it under the terms of the GNU General Public License as published by<br>
               the Free Software Foundation, either version 3 of the License, or<br>
@@ -281,6 +284,26 @@
                     </td>
                     <td>
                       select just single cell
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Strg</span>+
+                      <span class="badge bg-secondary">C</span>
+                    </td>
+                    <td>
+                      copy current selection to clipboard
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-secondary">Strg</span>+
+                      <span class="badge bg-secondary">V</span>
+                    </td>
+                    <td>
+                      paste from clipboard
                     </td>
                   </tr>
 
