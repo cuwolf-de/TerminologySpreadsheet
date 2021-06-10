@@ -94,7 +94,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <div class="input-group mb-3">
+              <div class="input-group mb-2">
                 <button class="btn btn-secondary cancelButton" type="button" >
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#x-lg"></use></svg>
                   <span class="d-none d-md-inline">cancel</span>
@@ -108,6 +108,15 @@
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#search"></use></svg>
                   <span class="d-none d-md-inline">search</span>
                 </button>
+              </div>
+            </div>
+            <div class="col-12 mb-3">
+              <div class="input-group">
+                <label class="input-group-text small">Query Mode</label>
+                <select class="form-select">
+                  <option value="suggest" selected>suggest (try to find most matching terminologies)</option>
+                  <option value="search">search (try to find the exact terminology)</option>
+                </select>
               </div>
             </div>
             <div class="col-12">
@@ -154,9 +163,9 @@
                 <div class="tab-pane fade" id="terminologyQuery-cellinfo" role="tabpanel" aria-labelledby="terminologyQuery-cellinfo-tab">
                   <div class="container-fluid">
                     <div class="row">
-                      <textarea class="col-12 cellInfoContainer">
+                      <div class="col-12 cellInfoContainer">
                         ZellInfo
-                      </textarea>
+                      </div>
                     </div>
                   </div>
                 </div>

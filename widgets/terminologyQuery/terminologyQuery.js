@@ -52,7 +52,7 @@ class TerminologyQuery {
       this.searchField.focus();
       this.searchField.setSelectionRange(0, this.searchField.value.length);
 
-      this.domelem.getElementsByClassName("cellInfoContainer")[0].innerHTML = JSON.stringify(cellObj,null,2);
+      this.domelem.getElementsByClassName("cellInfoContainer")[0].innerHTML = JSON.stringify(cellObj.info,null,2).replaceAll("\n","<br>");
    }
    setFinalizeFunction(finalizeFunction) {
       this.finalizeFunction = finalizeFunction;
