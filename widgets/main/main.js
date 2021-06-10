@@ -60,30 +60,3 @@ function hideClickHelpTab(event) {
    }
 }
 document.getElementById("helpTab").addEventListener("click", hideClickAboutTab );
-
-// ======================================== Some tests:
-spreadsheet.setCellValue(2,2,"Measurement-ID",null);
-spreadsheet.setCellValue(2,3,"Spezie",null);
-spreadsheet.setCellValue(2,4,"Region",null);
-spreadsheet.setCellValue(2,5,"Date",null);
-spreadsheet.setCellValue(2,6,"Time",null);
-
-spreadsheet.setCellValue(3,2,"L0171",null);
-spreadsheet.setCellValue(3,3,"homo sapiens",{ url : "gfbio.org" });
-spreadsheet.setCellValue(3,4,"germany",{ url : "geo.org" });
-spreadsheet.setCellValue(3,5,"12.09.2019",null);
-spreadsheet.setCellValue(3,6,"13:00",null);
-
-spreadsheet.setCellValue(2,8,"Measurement-ID",null);
-spreadsheet.setCellValue(2,9,"Spezie",null);
-spreadsheet.setCellValue(2,10,"Region",null);
-spreadsheet.setCellValue(2,11,"Date",null);
-spreadsheet.setCellValue(2,12,"Time",null);
-
-spreadsheet.setCellValue(3,8,"L0171",null);
-spreadsheet.setCellValue(3,9,"homo sapiens",{ url : "gfbio.org" });
-spreadsheet.setCellValue(3,10,"germany",{ url : "geo.org" });
-spreadsheet.setCellValue(3,11,"12.09.2019",null);
-spreadsheet.setCellValue(3,12,"13:00",null);
-
-spreadsheet.selectCells([[2,2],[2,2]]);

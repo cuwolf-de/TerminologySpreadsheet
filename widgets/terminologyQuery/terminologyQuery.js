@@ -24,6 +24,7 @@ class TerminologyQuery {
       this.searchField = this.domelem.getElementsByClassName("name_inputCellValue")[0]; // DomElement of Search Field
       this.searchResultsField = this.domelem.getElementsByClassName("searchResults")[0]; // DomElement of Search Field
       this.SUGGEST_LIMIT = 50;
+      this.spreadsheetRef = spreadsheet;
 
       // All HTML-Elements that have the Name cancelButton (here we have a list because Name does not need to be unique compared to id)
       for(var buttonElem of this.domelem.getElementsByClassName("cancelButton")) {
@@ -67,14 +68,7 @@ class TerminologyQuery {
       }
       this.hide();
    }
-   applyTerminology() {
-      if(this.finalizeFunction != null) {
-         this.finalizeFunction(
-            "Hello", // TODO: Keyword here
-            { url : "fancy.url" } // Terminology JSON here
-         );
-      }
-   }
+
    /**  **/
    searchTerminology() {
       var that = this;
@@ -102,19 +96,26 @@ class TerminologyQuery {
                resultLine.appendChild(tdElem);
 
                tdElem = document.createElement("td");
+
+               var buttonElem = document.createElement("button");
+               buttonElem.type = "button";
+               buttonElem.classList.add("btn");
+               buttonElem.classList.add("btn-outline-primary");
+               buttonElem.classList.add("btn-sm");
+               buttonElem.style.marginRight = "10px";
+               buttonElem.innerHTML = "<svg class='bi' width='16' height='16' fill='currentColor'><use href='widgets/icons/bootstrap-icons.svg#info-circle'></use></svg><span class='d-none d-md-inline'>info</span>";
+               buttonElem.addEventListener("click", that.searchResultInfoEventGenerator(result));
+               tdElem.appendChild(buttonElem);
+               
                var buttonElem = document.createElement("button");
                buttonElem.type = "button";
                buttonElem.classList.add("btn");
                buttonElem.classList.add("btn-success");
                buttonElem.classList.add("btn-sm");
                buttonElem.innerHTML = "<svg class='bi' width='16' height='16' fill='currentColor'><use href='widgets/icons/bootstrap-icons.svg#caret-right'></use></svg><span class='d-none d-md-inline'>apply</span>";
-
-               buttonElem.addEventListener("click", function() {
-                  spreadsheet.setCellValueToSelectedCells(result.label,result);
-                  that.hide();
-               })
-
+               buttonElem.addEventListener("click", that.searchResultApplyEventGenerator(result));
                tdElem.appendChild(buttonElem);
+
                resultLine.appendChild(tdElem);
             }
          }
@@ -127,6 +128,19 @@ class TerminologyQuery {
          xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value)+"&limit="+String(that.SUGGEST_LIMIT), true);
       }
       xhttpSearchReq.send();
+   }
+
+   searchResultInfoEventGenerator(result) {
+      return function() {
+         alert(JSON.stringify(result,null,2));
+      }
+   }
+   searchResultApplyEventGenerator(result) {
+      var that = this;
+      return function() {
+         that.finalizeFunction(result.label,result);
+         that.hide();
+      }
    }
 
    hide() {

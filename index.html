@@ -56,8 +56,11 @@
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load from JSON
                 </a></li>
                 <hr class="m-1">
-                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV();">
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(false);">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV
+                </a></li>
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(false);">
+                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV (+Info)
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportJSON();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as JSON
@@ -144,7 +147,7 @@
                             <tr>
                               <th scope="col">Terminology</th>
                               <th scope="col">Source</th>
-                              <th scope="col">Apply</th>
+                              <th scope="col">Actions</th>
                             </tr>
                           </thead>
                           <tbody class="searchResults">

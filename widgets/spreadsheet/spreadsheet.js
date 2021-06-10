@@ -336,12 +336,16 @@ class Spreadsheet {
       }
    }
 
-   exportCSV() {
+   exportCSV(exportInfo) {
       var data = "";
-      for (var row = 0; row < this.cells.length; row++) {
-         for (var column = 0; column < this.cells[row].length; column++) {
+      for (var row = 1; row < this.cells.length; row++) {
+         for (var column = 1; column < this.cells[row].length; column++) {
             var celltext = this.cells[row][column].text;
+            var cellinfo = JSON.stringify(this.cells[row][column].info).replaceAll("\n","").replaceAll(";",",");
             data += celltext;
+            if(exportInfo) {
+               data += ";" + cellinfo;
+            }
             if (column < this.cells[row].length-1) {
                data += ";";
             } 
