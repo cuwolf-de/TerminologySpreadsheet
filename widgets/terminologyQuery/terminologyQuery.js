@@ -151,4 +151,11 @@ class TerminologyQuery {
          this.hide();
       }
    }
+   isActive() {
+      if (this.domelem.style.display == "none") {
+         return false;
+      } else {
+         return true;
+      }
+   }
 }

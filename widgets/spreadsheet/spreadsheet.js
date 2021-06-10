@@ -60,6 +60,12 @@ class Spreadsheet {
       this.reset();
    }
 
+   createNewSpreadsheet(rows, cols) {
+      this.rows = rows;
+      this.cols = cols;
+      this.reset();
+   }
+
    reset() {
       var that = this;
       // Clear HTML-Code and Elements in main domelement where we have access to write our table
@@ -336,6 +342,26 @@ class Spreadsheet {
       }
    }
 
+   importJSONFile(event) {
+      var uploadFile = event.target.files[0];
+      var reader = new FileReader();
+      var filecontent = reader.readAsText(uploadFile, utf8);
+      this.importJSON(filecontent);
+   }
+
+   importJSON(filecontent) {
+      var jsoncells = JSON.parse(filecontent);
+
+      this.createNewSpreadsheet(jsoncells.length, jsoncells[0].length);
+
+      for (var row = 1; row < this.cells.length; row++) {
+         for (var column = 1; column < this.cells[row].length; column++) {
+            this.cells[row][column].text = jsoncells[row][column].text;
+            this.cells[row][column].info = jsoncells[row][column].info;
+         }
+      }
+   }
+
    exportCSV(exportInfo) {
       var data = "";
       for (var row = 1; row < this.cells.length; row++) {
@@ -359,8 +385,20 @@ class Spreadsheet {
    }
 
    exportJSON() {
-      var data = JSON.stringify(this.cells);
-      // TODO: FIXME: A,B,C,... and 1,2,3,... will be exported, too
+      var jsoncells = [];
+
+      for (var row = 1; row < this.cells.length; row++) {
+         jsoncells.push([]);
+         for (var column = 1; column < this.cells[row].length; column++) {
+            cell = {
+               text : this.cells[row][column].text,
+               info : this.cells[row][column].info,
+            };
+            jsoncells[row].push(cell);
+         }
+      }
+
+      var data = JSON.stringify(jsoncells,null,2);
       this.createDownloadableFile("Spreadsheet.json", data, "json");
    }
 

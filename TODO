@@ -4,4 +4,16 @@
 
 - Load from CSV / JSON?
 
--
+- Multiple Selected Cell-Fields
+
+- Strg+Z (undo)
+
+- Zeit und Datum einheitlich eintragbar über Button / extra Tab in Zell-Edit-Fenster
+
+- Wenn Search/Zell-Editier-Dialog offen, dann anderes Verhalten der Tastatur-Keys
+   - Esc dann Cancel
+   - Enter = Apply current
+   - Shift + Enter = Search
+   - Arrow up/down select from search results
+
+- gfbio-Query anzeigen, falls Fehler/Warnung statt label in dict ist (z.B. bei suggest mit nur 3 Buchstaben)

@@ -55,12 +55,18 @@
                 <li><a class="dropdown-item" href="#" onclick="alert('Not implemented yet :-)');">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load from JSON
                 </a></li>
+                <li>
+                  <label class="dropdown-item">
+                    <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#upload"></use></svg> Load from JSON
+                    <input type="file" id="loadFromJsonFileInput" hidden>
+                  </label>                
+                </li>
                 <hr class="m-1">
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(false);">
-                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV
+                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV (text only)
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportCSV(true);">
-                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV (+Info)
+                  <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as CSV (+ Term-Info)
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="spreadsheet.exportJSON();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#download"></use></svg> Save as JSON
@@ -192,9 +198,11 @@
               <b>Terminology Spreadsheet</b>
             </div>
             <div class="col-12 text-center mt-3 small">
-              programmed by <b>Niklas Rausch, Anne Schulte-Kroll, Wolf Weber</b>
+              <b>programmed by</b><br>N. Rausch, A. Schulte-Kroll, W. Weber
             </div>
             <div class="col-12 text-center mt-3 small">
+              <b>Software License and Copy Right</b>
+              <br>
               This program is free software: you can redistribute it and/or modify<br>
               it under the terms of the GNU General Public License as published by<br>
               the Free Software Foundation, either version 3 of the License, or<br>

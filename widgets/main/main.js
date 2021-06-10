@@ -30,8 +30,15 @@ spreadsheet = new Spreadsheet(
 
 terminologyQuery.setFinalizeFunction( function(text,info) { spreadsheet.setCellValueToSelectedCells(text,info); })
 
+document.getElementById("loadFromJsonFileInput").addEventListener("change", function(e) { spreadsheet.importJSONFile(e); } , false);
 
-document.addEventListener("keydown", function(e) { spreadsheet.keyEventHandler(e); } );
+document.addEventListener("keydown", function(e) {
+   if(terminologyQuery.isActive()) {
+      terminologyQuery.keyEventHandler(e);
+   } else {
+      spreadsheet.keyEventHandler(e);
+   }
+} );
 
 // ======================================== Show or hide About-Tab
 function showAboutTab() {
