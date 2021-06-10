@@ -23,6 +23,7 @@ class TerminologyQuery {
       this.finalizeFunction = null;
       this.searchField = this.domelem.getElementsByClassName("name_inputCellValue")[0]; // DomElement of Search Field
       this.searchResultsField = this.domelem.getElementsByClassName("searchResults")[0]; // DomElement of Search Field
+      this.SUGGEST_LIMIT = 50;
 
       // All HTML-Elements that have the Name cancelButton (here we have a list because Name does not need to be unique compared to id)
       for(var buttonElem of this.domelem.getElementsByClassName("cancelButton")) {
@@ -89,7 +90,6 @@ class TerminologyQuery {
             
             that.searchResultsField.innerHTML = "";
             for(var result of responseObj.results) {
-               // that.searchResultsField.innerHTML += "<tr><td>"+result.label+"</td><td>von hier</td><td>Button</td></tr>";
                var resultLine = document.createElement("tr");
                that.searchResultsField.appendChild(resultLine);
                
@@ -119,8 +119,13 @@ class TerminologyQuery {
             }
          }
       }
-      // this.xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(this.searchField.value), true);
-      xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value), true);
+
+      var queryMode = this.domelem.getElementsByClassName("queryMode")[0].value;
+      if(queryMode == "suggest") {
+         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/suggest?query="+String(that.searchField.value), true);
+      } else {
+         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value)+"&limit="+String(that.SUGGEST_LIMIT), true);
+      }
       xhttpSearchReq.send();
    }
 
