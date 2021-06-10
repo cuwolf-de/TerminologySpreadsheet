@@ -51,6 +51,8 @@ class TerminologyQuery {
       this.searchField.value = cellObj.text;
       this.searchField.focus();
       this.searchField.setSelectionRange(0, this.searchField.value.length);
+
+      this.domelem.getElementsByClassName("cellInfoContainer")[0].innerHTML = JSON.stringify(cellObj,null,2);
    }
    setFinalizeFunction(finalizeFunction) {
       this.finalizeFunction = finalizeFunction;
@@ -75,19 +77,14 @@ class TerminologyQuery {
    /**  **/
    searchTerminology() {
       var that = this;
-      // TODO:
       this.text = this.domelem.getElementsByClassName("loadingSpinner")[0].style.display = "flex";
-      // alert("https://terminologies.gfbio.org/api/terminologies/search?query="+ this.searchField.value  +"&match_type=exact&first_hit=false&format=json&internal_only=false");
    
+      that.searchResultsField.innerHTML = "";
       var xhttpSearchReq = new XMLHttpRequest();
       xhttpSearchReq.onreadystatechange = function () {
-         // alert(that.xhttpSearchReq.responseText);
          if (this.readyState == 4 && this.status == 200) {
-            //alert(that.searchField.value);
-            // var responseText=this.responseText;
-            // alert(responseText);
             var responseObj = JSON.parse(this.responseText);
-            // responseObj.results.length.label
+
             that.domelem.getElementsByClassName("loadingSpinner")[0].style.display = "none";
             
             that.searchResultsField.innerHTML = "";
@@ -111,13 +108,14 @@ class TerminologyQuery {
                buttonElem.classList.add("btn-success");
                buttonElem.classList.add("btn-sm");
                buttonElem.innerHTML = "<svg class='bi' width='16' height='16' fill='currentColor'><use href='widgets/icons/bootstrap-icons.svg#caret-right'></use></svg><span class='d-none d-md-inline'>apply</span>";
-               //buttonElem.addEventListener("click", function() { alert( "Clicked on "+result.label ); })
-               buttonElem.addEventListener("click", function() { spreadsheet.setCellValueToSelectedCells(result.label,result); })
+
+               buttonElem.addEventListener("click", function() {
+                  spreadsheet.setCellValueToSelectedCells(result.label,result);
+                  that.hide();
+               })
 
                tdElem.appendChild(buttonElem);
                resultLine.appendChild(tdElem);
-
-
             }
          }
       }

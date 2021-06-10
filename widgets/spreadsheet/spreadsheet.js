@@ -336,13 +336,7 @@ class Spreadsheet {
       }
    }
 
-   // TODO:
-   // Function to download data to a file
-   exportCSV() { // (data, filename, type) {
-      
-      // TODO: data should be text of csv format of cell values accessible via 
-      // this.cells[row][column]
-      
+   exportCSV() {
       var data = "";
       for (var row = 0; row < this.cells.length; row++) {
          for (var column = 0; column < this.cells[row].length; column++) {
@@ -356,9 +350,17 @@ class Spreadsheet {
             data += "\n";
          }
       }
-      var type = "csv";
-      var filename = "testfile.csv";
 
+      this.createDownloadableFile("Spreadsheet.csv", data, "csv");
+   }
+
+   exportJSON() {
+      var data = JSON.stringify(this.cells);
+      // TODO: FIXME: A,B,C,... and 1,2,3,... will be exported, too
+      this.createDownloadableFile("Spreadsheet.json", data, "json");
+   }
+
+   createDownloadableFile(filename, data, type) {
       var file = new Blob([data], {type: type});
       if (window.navigator.msSaveOrOpenBlob) // IE10+
             window.navigator.msSaveOrOpenBlob(file, filename);

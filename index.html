@@ -49,7 +49,7 @@
                 <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#file-earmark"></use></svg> File
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#" onclick="newSpreadSheet();">
+                <li><a class="dropdown-item" href="#" onclick="spreadsheet.reset();">
                   <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#file-earmark"></use></svg> New
                 </a></li>
                 <li><a class="dropdown-item" href="#" onclick="alert('Not implemented yet :-)');">
@@ -111,28 +111,55 @@
               </div>
             </div>
             <div class="col-12">
-              <div name="result" class="d-none align-items-center">
-                <strong>Results for:</strong>
-                <span class="ms-auto">Search Query</span>
-              </div>
-            </div>
-            <div class="col-12 searchResultContainer">
-              <table class="table table-sm">
-                <thead style="position: sticky; top: 0px; z-index: 10px; background-color: #ffffff;">
-                  <tr>
-                    <th scope="col">Terminology</th>
-                    <th scope="col">Source</th>
-                    <th scope="col">Apply</th>
-                  </tr>
-                </thead>
-                <tbody class="searchResults">
-                </tbody>
-              </table>
-            </div>
-            <div class="col-12">
-              <div name="loading" class="align-items-center loadingSpinner" style="display: none;">
-                <strong>Loading...</strong>
-                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="terminologyQuery-search-tab" data-bs-toggle="tab" data-bs-target="#terminologyQuery-search" type="button" role="tab" aria-controls="terminologyQuery-search" aria-selected="true">search</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="terminologyQuery-cellinfo-tab" data-bs-toggle="tab" data-bs-target="#terminologyQuery-cellinfo" type="button" role="tab" aria-controls="terminologyQuery-cellinfo" aria-selected="false">current cell info</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="terminologyQuery-search" role="tabpanel" aria-labelledby="terminologyQuery-search-tab">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12">
+                        <div name="result" class="d-none align-items-center">
+                          <strong>Results for:</strong>
+                          <span class="ms-auto">Search Query</span>
+                        </div>
+                      </div>
+                      <div class="col-12 searchResultContainer">
+                        <table class="table table-sm">
+                          <thead style="position: sticky; top: 0px; z-index: 10px; background-color: #ffffff;">
+                            <tr>
+                              <th scope="col">Terminology</th>
+                              <th scope="col">Source</th>
+                              <th scope="col">Apply</th>
+                            </tr>
+                          </thead>
+                          <tbody class="searchResults">
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-12">
+                        <div name="loading" class="align-items-center loadingSpinner" style="display: none;">
+                          <strong>Loading...</strong>
+                          <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="terminologyQuery-cellinfo" role="tabpanel" aria-labelledby="terminologyQuery-cellinfo-tab">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <textarea class="col-12 cellInfoContainer">
+                        ZellInfo
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

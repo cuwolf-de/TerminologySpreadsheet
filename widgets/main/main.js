@@ -30,14 +30,6 @@ spreadsheet = new Spreadsheet(
 
 terminologyQuery.setFinalizeFunction( function(text,info) { spreadsheet.setCellValueToSelectedCells(text,info); })
 
-function newSpreadSheet() {
-   // TODO: Ask before resetting whole Spreadsheet
-   spreadsheet.reset();
-}
-function saveAsCSV() {
-   spreadsheet.exportCSV();
-}
-
 
 document.addEventListener("keydown", function(e) { spreadsheet.keyEventHandler(e); } );
 
