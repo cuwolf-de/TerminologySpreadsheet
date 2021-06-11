@@ -343,10 +343,13 @@ class Spreadsheet {
    }
 
    importJSONFile(event) {
+      var that = this;
       var uploadFile = event.target.files[0];
       var reader = new FileReader();
-      var filecontent = reader.readAsText(uploadFile, utf8);
-      this.importJSON(filecontent);
+      reader.onloadend = function(event) {
+         that.importJSON(event.target.result);
+      }
+      reader.readAsText(uploadFile, "utf8");
    }
 
    importJSON(filecontent) {
@@ -356,8 +359,8 @@ class Spreadsheet {
 
       for (var row = 1; row < this.cells.length; row++) {
          for (var column = 1; column < this.cells[row].length; column++) {
-            this.cells[row][column].text = jsoncells[row][column].text;
-            this.cells[row][column].info = jsoncells[row][column].info;
+            this.cells[row][column].text = jsoncells[row-1][column-1].text;
+            this.cells[row][column].info = jsoncells[row-1][column-1].info;
          }
       }
    }
@@ -390,7 +393,7 @@ class Spreadsheet {
       for (var row = 1; row < this.cells.length; row++) {
          jsoncells.push([]);
          for (var column = 1; column < this.cells[row].length; column++) {
-            cell = {
+            var cell = {
                text : this.cells[row][column].text,
                info : this.cells[row][column].info,
             };
