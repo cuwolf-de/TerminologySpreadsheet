@@ -230,90 +230,154 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <table class="table table-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">Mouse / Keyboard</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">F2</span>
-                      <br>
-                      <span class="badge bg-secondary">Double-Click</span>
-                    </td>
-                    <td>
-                      edit selected cell(s)
-                    </td>
-                  </tr>
+              <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="helpWindow-spreadsheet-tab" data-bs-toggle="tab" data-bs-target="#helpWindow-spreadsheet" type="button" role="tab" aria-controls="helpWindow-spreadsheet" aria-selected="true">search</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="helpWindow-terminologyQuery-tab" data-bs-toggle="tab" data-bs-target="#helpWindow-terminologyQuery" type="button" role="tab" aria-controls="helpWindow-terminologyQuery" aria-selected="false">current cell info</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent2">
+                <div class="tab-pane fade show active" id="helpWindow-spreadsheet" role="tabpanel" aria-labelledby="helpWindow-spreadsheet-tab">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Mouse / Keyboard</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">F2</span>
+                                <br>
+                                <span class="badge bg-secondary">Double-Click</span>
+                              </td>
+                              <td>
+                                edit selected cell(s)
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Entf</span>
+                                <span class="badge bg-secondary">Backspace</span>
+                              </td>
+                              <td>
+                                remove content of selected cells
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Arrows</span>
+                              </td>
+                              <td>
+                                move current selection of cells
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Shift</span> + <span class="badge bg-secondary">Arrows</span>
+                                <br>
+                                <span class="badge bg-secondary">mouse down, move and mouse up</span> ->
+                                <span class="badge bg-secondary">mouse move</span> ->
+                                <span class="badge bg-secondary">mouse up</span>
+                              </td>
+                              <td>
+                                modify current selection of cells
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Esc</span>
+                              </td>
+                              <td>
+                                select just single cell
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Strg</span>+
+                                <span class="badge bg-secondary">C</span>
+                              </td>
+                              <td>
+                                copy current selection to clipboard (IMPLEMENT !)
+                              </td>
+                            </tr>
+          
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Strg</span>+
+                                <span class="badge bg-secondary">V</span>
+                              </td>
+                              <td>
+                                paste from clipboard (IMPLEMENT !)
+                              </td>
+                            </tr>
+          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="helpWindow-terminologyQuery" role="tabpanel" aria-labelledby="helpWindow-terminologyQuery-tab">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">Mouse / Keyboard</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Esc</span>
+                              </td>
+                              <td>
+                                Cancel / Back
+                              </td>
+                            </tr>
 
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Entf</span>
-                      <span class="badge bg-secondary">Backspace</span>
-                    </td>
-                    <td>
-                      remove content of selected cells<br>
-                      (BUG: Backspace will navigate back in Firefox)
-                    </td>
-                  </tr>
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Enter</span>
+                              </td>
+                              <td>
+                                Apply current text to cell
+                              </td>
+                            </tr>
 
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Arrows</span>
-                    </td>
-                    <td>
-                      move current selection of cells
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Shift</span> + <span class="badge bg-secondary">Arrows</span>
-                      <br>
-                      <span class="badge bg-secondary">mouse down, move and mouse up</span> ->
-                      <span class="badge bg-secondary">mouse move</span> ->
-                      <span class="badge bg-secondary">mouse up</span>
-                    </td>
-                    <td>
-                      modify current selection of cells
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Esc</span>
-                    </td>
-                    <td>
-                      select just single cell
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Strg</span>+
-                      <span class="badge bg-secondary">C</span>
-                    </td>
-                    <td>
-                      copy current selection to clipboard
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span class="badge bg-secondary">Strg</span>+
-                      <span class="badge bg-secondary">V</span>
-                    </td>
-                    <td>
-                      paste from clipboard
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
+                            <tr>
+                              <td>
+                                <span class="badge bg-secondary">Shift</span> +
+                                <span class="badge bg-secondary">Enter</span>
+                              </td>
+                              <td>
+                                Search for terminology
+                              </td>
+                            </tr>
+          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="col-12 text-center mt-4">
               <button class="btn btn-primary" onclick="hideHelpTab();" type="button">

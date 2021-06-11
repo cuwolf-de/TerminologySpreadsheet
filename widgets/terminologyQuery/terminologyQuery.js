@@ -39,9 +39,9 @@ class TerminologyQuery {
 
       this.domelem.addEventListener("click", function(event) { that.hideClick(event); } );
 
-      this.domelem.getElementsByClassName("name_inputCellValue")[0].addEventListener("keyup", function(event) {
-         that.keyEventHandler(event); // TODO: FIXME: double called?
-      });
+      // this.domelem.getElementsByClassName("name_inputCellValue")[0].addEventListener("keyup", function(event) {
+      //    that.keyEventHandler(event); // TODO: FIXME: double called?
+      // });
    }
 
    show(cellObj) {
@@ -162,9 +162,9 @@ class TerminologyQuery {
          this.hide();
       } else if (event.keyCode === 13) { // event.preventDefault(); // "Enter"   (Cancel the default action, if needed)
          if(event.shiftKey) {
-            that.searchTerminology();
+            this.searchTerminology();
          } else {
-            that.applyCurrentValue();
+            this.applyCurrentValue();
          }
       }
    }
