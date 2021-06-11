@@ -81,16 +81,16 @@ class TerminologyQuery {
             that.domelem.getElementsByClassName("loadingSpinner")[0].style.display = "none";
             
             that.searchResultsField.innerHTML = "";
-            for(var result of responseObj.results) {
+            for(var result of responseObj.results) { // NOTE: the API response has results as list of result-dicts
                var resultLine = document.createElement("tr");
                that.searchResultsField.appendChild(resultLine);
                
                var tdElem = document.createElement("td");
-               tdElem.innerHTML = result.label;
+               tdElem.innerHTML = result.label; // NOTE: the result attribute of the API response has label attribute for the keyword/terminology
                resultLine.appendChild(tdElem);
                
                tdElem = document.createElement("td");
-               tdElem.innerHTML = result.sourceTerminology;
+               tdElem.innerHTML = result.sourceTerminology; // NOTE: the result attribute of the API response has sourceTerminology attribute to show origin
                resultLine.appendChild(tdElem);
 
                tdElem = document.createElement("td");
@@ -121,9 +121,9 @@ class TerminologyQuery {
 
       var queryMode = this.domelem.getElementsByClassName("queryMode")[0].value;
       if(queryMode == "suggest") {
-         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/suggest?query="+String(that.searchField.value), true);
+         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/suggest?query="+String(that.searchField.value), true); // NOTE: Query Type 1
       } else {
-         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value)+"&limit="+String(that.SUGGEST_LIMIT), true);
+         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value)+"&limit="+String(that.SUGGEST_LIMIT), true); // NOTE: Query Type 2
       }
       xhttpSearchReq.send();
    }
