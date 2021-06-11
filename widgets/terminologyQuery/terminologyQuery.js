@@ -158,4 +158,10 @@ class TerminologyQuery {
          return true;
       }
    }
+
+   keyEventHandler(event) {
+      if (event.keyCode === 27) { //event.preventDefault(); // "Esc"   (Cancel the default action, if needed)
+         this.close();
+      }
+   }
 }

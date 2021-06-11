@@ -145,7 +145,7 @@ class Spreadsheet {
          if(! event.shiftKey) { newSelection[0][0] += 1; }
          newSelection[1][0] += 1;
          this.selectCells(newSelection);
-      } else if (event.keyCode === 8) { //event.preventDefault(); // "Backspace"   (Cancel the default action, if needed)
+      } else if (event.keyCode === 8) { event.preventDefault(); // "Backspace"   (Cancel the default action, if needed)
          this.deleteCellContent();
       } else if (event.keyCode === 46) { //event.preventDefault(); // "Entf"   (Cancel the default action, if needed)
          this.deleteCellContent();
@@ -394,7 +394,7 @@ class Spreadsheet {
                text : this.cells[row][column].text,
                info : this.cells[row][column].info,
             };
-            jsoncells[row].push(cell);
+            jsoncells[row-1].push(cell);
          }
       }
 
