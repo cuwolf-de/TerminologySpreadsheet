@@ -361,6 +361,7 @@ class Spreadsheet {
          for (var column = 1; column < this.cells[row].length; column++) {
             this.cells[row][column].text = jsoncells[row-1][column-1].text;
             this.cells[row][column].info = jsoncells[row-1][column-1].info;
+            this.cells[row][column].update();
          }
       }
    }

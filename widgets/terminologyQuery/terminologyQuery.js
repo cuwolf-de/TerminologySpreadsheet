@@ -38,11 +38,9 @@ class TerminologyQuery {
       }
 
       this.domelem.addEventListener("click", function(event) { that.hideClick(event); } );
+
       this.domelem.getElementsByClassName("name_inputCellValue")[0].addEventListener("keyup", function(event) {
-         if (event.keyCode === 13) { // Number 13 is the "Enter" key on the keyboard
-           event.preventDefault(); // Cancel the default action, if needed
-           that.applyCurrentValue();
-         }
+         that.keyEventHandler(event); // TODO: FIXME: double called?
       });
    }
 
@@ -162,6 +160,12 @@ class TerminologyQuery {
    keyEventHandler(event) {
       if (event.keyCode === 27) { //event.preventDefault(); // "Esc"   (Cancel the default action, if needed)
          this.hide();
+      } else if (event.keyCode === 13) { // event.preventDefault(); // "Enter"   (Cancel the default action, if needed)
+         if(event.shiftKey) {
+            that.searchTerminology();
+         } else {
+            that.applyCurrentValue();
+         }
       }
    }
 }
