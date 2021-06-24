@@ -352,6 +352,26 @@ class Spreadsheet {
       reader.readAsText(uploadFile, "utf8");
    }
 
+   importCSVFile(event) {
+      var that = this;
+      var uploadFile = event.target.files[0];
+      var reader = new FileReader();
+      reader.onloadend = function(event) {
+         that.importCSV(event.target.result, false);
+      }
+      reader.readAsText(uploadFile, "utf8");
+   }
+
+   importCSVTermFile(event) {
+      var that = this;
+      var uploadFile = event.target.files[0];
+      var reader = new FileReader();
+      reader.onloadend = function(event) {
+         that.importCSV(event.target.result, true);
+      }
+      reader.readAsText(uploadFile, "utf8");
+   }
+
    importJSON(filecontent) {
       var jsoncells = JSON.parse(filecontent);
 
@@ -366,19 +386,94 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * Import Text in CSV-Format and apply to spreadsheet
+    * NOTE: Comments in CSV-Format are currently NOT supported
+    * 
+    * @param {the csv text as string that should be imported} text 
+    * @param {boolean true/false if every second row contains JSON-Dicts that describe additional Info for cells} importInfo 
+    */
+   importCSV(text, importInfo) {
+      var SEPARATOR = ";";
+
+      // Analyze File data and extract data
+      var textlines = text.split("\n");
+      var maxCols = 0;
+      var maxRows = textlines.length;
+      var data = [];
+      
+      var row = 0;
+      var textrow = 0;
+      while(textrow < textlines.length) {
+         var textline = textlines[textrow];
+         data.push([]);
+         var celltexts = textline.split(SEPARATOR);
+         maxCols = Math.max(maxCols, celltexts.length);
+
+         var col = 0;
+         for(var celltext of celltexts) {
+            data[row].push({
+               text : celltext,
+               info : null
+            });
+         }
+
+         if(importInfo) {
+            ++textrow;
+            textline = textlines[textrow];
+            var celltexts = textline.split(SEPARATOR);
+            
+            var col = 0;
+            for(var celltext of celltexts) {
+               if(celltext == "") {
+                  data[row][col].info = null;
+               } else {
+                  data[row][col].info = JSON.parse(celltext);
+               }
+               ++col;
+            }
+         }
+
+         ++textrow;
+         ++row;
+      }
+
+      // Create Spreadsheet-Cells and copy to Spreadsheet
+      this.createNewSpreadsheet(maxRows, maxCols);
+      var row = 1;
+      for(var datarow of data) {
+         var col = 1;
+         for(var cell of datarow) {
+            this.cells[row][col].text = cell.text;
+            this.cells[row][col].info = cell.info;
+            this.cells[row][col].update();
+            ++col;
+         }
+         ++row;
+      }
+   }
+
    exportCSV(exportInfo) {
       var data = "";
       for (var row = 1; row < this.cells.length; row++) {
          for (var column = 1; column < this.cells[row].length; column++) {
             var celltext = this.cells[row][column].text;
-            var cellinfo = JSON.stringify(this.cells[row][column].info).replaceAll("\n","").replaceAll(";",",");
             data += celltext;
-            if(exportInfo) {
-               data += ";" + cellinfo;
-            }
             if (column < this.cells[row].length-1) {
                data += ";";
             } 
+         }
+         if (exportInfo) {
+            data += "\n";
+            for (var column = 1; column < this.cells[row].length; column++) {
+               if(this.cells[row][column].info != null) {
+                  var cellinfo = JSON.stringify(this.cells[row][column].info).replaceAll("\n","").replaceAll(";",",");
+                  data += cellinfo;
+               }
+               if (column < this.cells[row].length-1) {
+                  data += ";";
+               }
+            }
          }
          if (row < this.cells.length-1) {
             data += "\n";

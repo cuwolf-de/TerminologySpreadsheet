@@ -31,6 +31,8 @@ spreadsheet = new Spreadsheet(
 terminologyQuery.setFinalizeFunction( function(text,info) { spreadsheet.setCellValueToSelectedCells(text,info); })
 
 document.getElementById("loadFromJsonFileInput").addEventListener("change", function(e) { spreadsheet.importJSONFile(e); } , false);
+document.getElementById("loadFromCSVFileInput").addEventListener("change", function(e) { spreadsheet.importCSVFile(e); } , false);
+document.getElementById("loadFromCSVTermFileInput").addEventListener("change", function(e) { spreadsheet.importCSVTermFile(e); } , false);
 
 document.addEventListener("keydown", function(e) {
    if(terminologyQuery.isActive()) {
