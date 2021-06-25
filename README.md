@@ -1,6 +1,6 @@
 # TerminologySpreadsheet
 
-![Screenshot of Terminology Search](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/img/example_search.png "Screenshot of Terminology Search")
+![alt text](https://github.com/cuwolf-de/TerminologySpreadsheet/main/wiki/img/example_search.png "Screenshot of Terminology Search")
 
 Only describe here for what this tool is good :-D
 
