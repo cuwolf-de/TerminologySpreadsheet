@@ -97,26 +97,6 @@ class TerminologyQuery {
       }
       xhttpSearchReq.open("GET", "/widgets/terminologyQuery/defaultQueryAPIs.json", false);
       xhttpSearchReq.send();
-      
-      // this.QUERY_APIS_BACKUP = JSON.stringify(
-      // [
-      //    {
-      //       "name"    : "gfbio : suggest (try to find similar)",
-      //       "apiURL"  : "https://terminologies.gfbio.org/api/terminologies/suggest?query={{searchTerm}}&limit=30",
-      //       "results" : "results",
-      //       "label"   : "label",
-      //       "source"  : "sourceTerminology"
-      //    },
-      //    {
-      //       "name"    : "gfbio : search (try to find exact)",
-      //       "apiURL"  : "https://terminologies.gfbio.org/api/terminologies/search?query={{searchTerm}}",
-      //       "results" : "results",
-      //       "label"   : "label",
-      //       "source"  : "sourceTerminology"
-      //    }
-      // ]
-      // ,null,2);
-      // this.resetQueryAPIs();
    }
 
    show(cellObj) {
