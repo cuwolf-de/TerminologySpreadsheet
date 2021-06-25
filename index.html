@@ -133,8 +133,6 @@
               <div class="input-group small">
                 <label class="input-group-text small">Query Mode</label>
                 <select class="form-select queryMode">
-                  <option value="suggest" selected>gfbio: suggest (try to find most matching terminologies)</option>
-                  <option value="search">gfbio: search (try to find the exact terminology)</option>
                 </select>
               </div>
             </div>
@@ -145,6 +143,9 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="terminologyQuery-cellinfo-tab" data-bs-toggle="tab" data-bs-target="#terminologyQuery-cellinfo" type="button" role="tab" aria-controls="terminologyQuery-cellinfo" aria-selected="false">current cell info</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="terminologyQuery-queryAPIS-tab" data-bs-toggle="tab" data-bs-target="#terminologyQuery-queryAPIS" type="button" role="tab" aria-controls="terminologyQuery-queryAPIS" aria-selected="false">query APIs</button>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">
@@ -184,6 +185,24 @@
                     <div class="row">
                       <div class="col-12 cellInfoContainer">
                         ZellInfo
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="terminologyQuery-queryAPIS" role="tabpanel" aria-labelledby="terminologyQuery-queryAPIS-tab">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12 p-0">
+                        <textarea class="form-control queryAPIsJSONField" rows="14" style="font-size: 13px!important;"></textarea>
+                      </div>
+                      <div class="col-4">
+                        <button type="button" class="restoreQueryAPIsButton btn btn-outline-secondary d-block mx-auto">Restore QueryAPIs</button>
+                      </div>
+                      <div class="col-4">
+                        <a class="btn btn-outline-secondary d-block mx-auto" href="https://github.com/cuwolf-de/TerminologySpreadsheet/blob/main/wiki/Usage.md#API-Queries-Config">Help</a>
+                      </div>
+                      <div class="col-4">
+                        <button type="button" class="applyQueryAPIsButton btn btn-primary d-block mx-auto">Set QueryAPIs</button>
                       </div>
                     </div>
                   </div>
@@ -299,8 +318,8 @@
                               <td>
                                 <span class="badge bg-secondary">Shift</span> + <span class="badge bg-secondary">Arrows</span>
                                 <br>
-                                <span class="badge bg-secondary">mouse down, move and mouse up</span> ->
-                                <span class="badge bg-secondary">mouse move</span> ->
+                                <span class="badge bg-secondary">mouse down</span> ->
+                                <span class="badge bg-secondary">mouse move (resize selection)</span> ->
                                 <span class="badge bg-secondary">mouse up</span>
                               </td>
                               <td>
@@ -370,7 +389,7 @@
                                 <span class="badge bg-secondary">Enter</span>
                               </td>
                               <td>
-                                Apply current text to cell
+                                Apply current text to cell (only works if focus currently on Search-Textfield)
                               </td>
                             </tr>
 

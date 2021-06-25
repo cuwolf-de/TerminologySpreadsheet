@@ -18,13 +18,17 @@
  */
 class TerminologyQuery {
    constructor(domelem, spreadsheet) {
+      // List that describes API's where we can query terminology
+      this.QUERY_APIS = [];
+      this.QUERY_APIS_BACKUP = "[]";
+
       var that = this; // We need "that" which is a copy of reference "this", because "this" will be the buttonElem if the buttonElem calls the function
       this.domelem = domelem;
       this.finalizeFunction = null;
       this.searchField = this.domelem.getElementsByClassName("name_inputCellValue")[0]; // DomElement of Search Field
       this.searchResultsField = this.domelem.getElementsByClassName("searchResults")[0]; // DomElement of Search Field
-      this.SUGGEST_LIMIT = 50;
       this.spreadsheetRef = spreadsheet;
+      this.queryAPISField = this.domelem.getElementsByClassName("queryAPIsJSONField")[0]; // DomElement of Search Field
 
       // All HTML-Elements that have the Name cancelButton (here we have a list because Name does not need to be unique compared to id)
       for(var buttonElem of this.domelem.getElementsByClassName("cancelButton")) {
@@ -36,12 +40,83 @@ class TerminologyQuery {
       for(var buttonElem of this.domelem.getElementsByClassName("terminologySearchButton")) {
          buttonElem.addEventListener("click", function() { that.searchTerminology(); } );
       }
+      for(var buttonElem of this.domelem.getElementsByClassName("restoreQueryAPIsButton")) {
+         buttonElem.addEventListener("click", function() { that.resetQueryAPIs(); } );
+      }
+      for(var buttonElem of this.domelem.getElementsByClassName("applyQueryAPIsButton")) {
+         buttonElem.addEventListener("click", function() { that.applyQueryAPIs(); } );
+      }
 
       this.domelem.addEventListener("click", function(event) { that.hideClick(event); } );
 
       // this.domelem.getElementsByClassName("name_inputCellValue")[0].addEventListener("keyup", function(event) {
       //    that.keyEventHandler(event); // TODO: FIXME: double called?
       // });
+      this.loadDefaultQueryAPIs();
+   }
+
+   resetQueryAPIs() {
+      this.queryAPISField.value = this.QUERY_APIS_BACKUP;
+      this.applyQueryAPIs();
+   }
+
+   applyQueryAPIs() {
+      var jsontext = this.queryAPISField.value;
+      try {
+         var jdict = JSON.parse(jsontext);
+         this.QUERY_APIS = jdict;
+         var queryModeElem = this.domelem.getElementsByClassName("queryMode")[0];
+         var txtInnerHTML = "";
+         for(var i=0; i<this.QUERY_APIS.length; i++) {
+            txtInnerHTML += "<option value=\""+String(i)+"\"";
+            if(i == 0) {
+               txtInnerHTML += " selected=\"\"";
+            }
+            txtInnerHTML += ">";
+            if("name" in this.QUERY_APIS[i]) {
+               txtInnerHTML += this.QUERY_APIS[i].name;
+            } else {
+               txtInnerHTML += "unknown option "+String(i);
+            }
+            txtInnerHTML += "</option>";
+         }
+         queryModeElem.innerHTML = txtInnerHTML;
+      } catch {
+         alert("Syntax Error in QueryAPIs JSON-Code :-/.\nSettings remain unchanged.");
+      }
+   }
+
+   loadDefaultQueryAPIs() {
+      var that = this;
+      var xhttpSearchReq = new XMLHttpRequest();
+      xhttpSearchReq.onreadystatechange = function () {
+         if (this.readyState == 4 && this.status == 200) {
+            that.QUERY_APIS_BACKUP = this.responseText;
+            that.resetQueryAPIs();
+         }
+      }
+      xhttpSearchReq.open("GET", "/widgets/terminologyQuery/defaultQueryAPIs.json", false);
+      xhttpSearchReq.send();
+      
+      // this.QUERY_APIS_BACKUP = JSON.stringify(
+      // [
+      //    {
+      //       "name"    : "gfbio : suggest (try to find similar)",
+      //       "apiURL"  : "https://terminologies.gfbio.org/api/terminologies/suggest?query={{searchTerm}}&limit=30",
+      //       "results" : "results",
+      //       "label"   : "label",
+      //       "source"  : "sourceTerminology"
+      //    },
+      //    {
+      //       "name"    : "gfbio : search (try to find exact)",
+      //       "apiURL"  : "https://terminologies.gfbio.org/api/terminologies/search?query={{searchTerm}}",
+      //       "results" : "results",
+      //       "label"   : "label",
+      //       "source"  : "sourceTerminology"
+      //    }
+      // ]
+      // ,null,2);
+      // this.resetQueryAPIs();
    }
 
    show(cellObj) {
@@ -71,26 +146,42 @@ class TerminologyQuery {
    searchTerminology() {
       var that = this;
       this.text = this.domelem.getElementsByClassName("loadingSpinner")[0].style.display = "flex";
+
+      var currentQueryAPI_index = parseInt(this.domelem.getElementsByClassName("queryMode")[0].value);
+      var currentQueryAPI = JSON.parse(JSON.stringify(this.QUERY_APIS[currentQueryAPI_index]));
+      if(!("label" in currentQueryAPI)) {
+         currentQueryAPI.label = "label";
+      }
+      if(!("apiURL" in currentQueryAPI)) {
+         currentQueryAPI.apiURL = "https://terminologies.gfbio.org/api/terminologies/suggest?query={{searchTerm}}&limit=30";
+      }
    
       that.searchResultsField.innerHTML = "";
       var xhttpSearchReq = new XMLHttpRequest();
+      
+      // Set Function that is called to process recieved API-Response after asynchronous recieving data as event
       xhttpSearchReq.onreadystatechange = function () {
          if (this.readyState == 4 && this.status == 200) {
-            var responseObj = JSON.parse(this.responseText);
-
+            var responseList = JSON.parse(this.responseText);
+            if("results" in currentQueryAPI && currentQueryAPI["results"] != "") {
+               responseList = responseList[currentQueryAPI["results"]];
+            }
             that.domelem.getElementsByClassName("loadingSpinner")[0].style.display = "none";
-            
             that.searchResultsField.innerHTML = "";
-            for(var result of responseObj.results) { // NOTE: the API response has results as list of result-dicts
+            for(var result of responseList) {
                var resultLine = document.createElement("tr");
                that.searchResultsField.appendChild(resultLine);
                
                var tdElem = document.createElement("td");
-               tdElem.innerHTML = result.label; // NOTE: the result attribute of the API response has label attribute for the keyword/terminology
+               tdElem.innerHTML = result[currentQueryAPI.label];
                resultLine.appendChild(tdElem);
                
                tdElem = document.createElement("td");
-               tdElem.innerHTML = result.sourceTerminology; // NOTE: the result attribute of the API response has sourceTerminology attribute to show origin
+               if("source" in currentQueryAPI) {
+                  tdElem.innerHTML = result[currentQueryAPI.source];
+               } else {
+                  tdElem.innerHTML = "";
+               }
                resultLine.appendChild(tdElem);
 
                tdElem = document.createElement("td");
@@ -111,7 +202,7 @@ class TerminologyQuery {
                buttonElem.classList.add("btn-success");
                buttonElem.classList.add("btn-sm");
                buttonElem.innerHTML = "<svg class='bi' width='16' height='16' fill='currentColor'><use href='widgets/icons/bootstrap-icons.svg#caret-right'></use></svg><span class='d-none d-md-inline'>apply</span>";
-               buttonElem.addEventListener("click", that.searchResultApplyEventGenerator(result));
+               buttonElem.addEventListener("click", that.searchResultApplyEventGenerator(result[currentQueryAPI.label],result));
                tdElem.appendChild(buttonElem);
 
                resultLine.appendChild(tdElem);
@@ -119,12 +210,9 @@ class TerminologyQuery {
          }
       }
 
-      var queryMode = this.domelem.getElementsByClassName("queryMode")[0].value;
-      if(queryMode == "suggest") {
-         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/suggest?query="+String(that.searchField.value), true); // NOTE: Query Type 1
-      } else {
-         xhttpSearchReq.open("GET", "https://terminologies.gfbio.org/api/terminologies/search?query="+String(that.searchField.value)+"&limit="+String(that.SUGGEST_LIMIT), true); // NOTE: Query Type 2
-      }
+      // Send API-Request
+      var getURL = currentQueryAPI.apiURL.replaceAll("{{searchTerm}}", String(that.searchField.value));
+      xhttpSearchReq.open("GET", getURL, true);
       xhttpSearchReq.send();
    }
 
@@ -133,10 +221,10 @@ class TerminologyQuery {
          alert(JSON.stringify(result,null,2));
       }
    }
-   searchResultApplyEventGenerator(result) {
+   searchResultApplyEventGenerator(resultLabel, resultJSON) {
       var that = this;
       return function() {
-         that.finalizeFunction(result.label,result);
+         that.finalizeFunction(resultLabel,resultJSON);
          that.hide();
       }
    }
@@ -164,7 +252,9 @@ class TerminologyQuery {
          if(event.shiftKey) {
             this.searchTerminology();
          } else {
-            this.applyCurrentValue();
+            if(document.activeElement === this.searchField) { // only Enter = Apply current if we currently type into search Field
+               this.applyCurrentValue();
+            }
          }
       }
    }
