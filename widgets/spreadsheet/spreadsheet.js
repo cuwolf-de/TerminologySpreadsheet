@@ -552,7 +552,9 @@ class Spreadsheet {
                if(celltext == "") {
                   data[row][col].info = null;
                } else {
-                  data[row][col].info = JSON.parse(celltext);
+                  try {
+                     data[row][col].info = JSON.parse(celltext);
+                  } catch {}
                }
                ++col;
             }
