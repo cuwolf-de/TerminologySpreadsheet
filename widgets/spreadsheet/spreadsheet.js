@@ -521,6 +521,9 @@ class Spreadsheet {
       var textlines = text.split("\n");
       var maxCols = 0;
       var maxRows = textlines.length;
+      if(importInfo) {
+         maxRows = maxRows / 2;
+      }
       var data = [];
       
       var row = 0;
@@ -539,7 +542,7 @@ class Spreadsheet {
             });
          }
 
-         if(importInfo) {
+         if(importInfo && textrow+1 < textlines.length) {
             ++textrow;
             textline = textlines[textrow];
             var celltexts = textline.split(SEPARATOR);
