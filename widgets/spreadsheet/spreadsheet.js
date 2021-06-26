@@ -589,7 +589,7 @@ class Spreadsheet {
       for (var row = 1; row < this.cells.length; row++) {
          for (var column = 1; column < this.cells[row].length; column++) {
             var celltext = this.cells[row][column].text;
-            data += celltext;
+            data += celltext.replaceAll("\n","").replaceAll(";",",");
             if (column < this.cells[row].length-1) {
                data += ";";
             } 
