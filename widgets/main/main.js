@@ -17,10 +17,12 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Create the Object for the terminologyQuery-Dialog
 terminologyQuery = new TerminologyQuery(
    document.getElementById("terminologyQuery")
 );
 
+// Create a new Spreadsheet-Object that displays the data and interacts with the user
 spreadsheet = new Spreadsheet(
    document.getElementById("spreadsheet"),
    100,
@@ -28,12 +30,15 @@ spreadsheet = new Spreadsheet(
    function(cellObj) { terminologyQuery.show(cellObj); }
 );
 
+// tell the terminologyDialog which function to call when the user wrote text that needs to be applied to a cell in the spreadsheet
 terminologyQuery.setFinalizeFunction( function(text,info) { spreadsheet.setCellValueToSelectedCells(text,info); })
 
+// Button Events for "uploading" a file to your webbrowser so you can edit this data in the spreadsheet
 document.getElementById("loadFromJsonFileInput").addEventListener("change", function(e) { spreadsheet.importJSONFile(e); } , false);
 document.getElementById("loadFromCSVFileInput").addEventListener("change", function(e) { spreadsheet.importCSVFile(e); } , false);
 document.getElementById("loadFromCSVTermFileInput").addEventListener("change", function(e) { spreadsheet.importCSVTermFile(e); } , false);
 
+// Global Key-Event Handler that forwards the event to the spreadsheet or the terminologyQuery if the dialog is shown
 document.addEventListener("keydown", function(e) {
    if(terminologyQuery.isActive()) {
       terminologyQuery.keyEventHandler(e);

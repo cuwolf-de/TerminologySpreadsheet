@@ -1,12 +1,29 @@
+# Default usage of the web application
+## 1. Import/Upload existing CSV-file or create new spreadsheet
+> TODO:
+## 2. Edit cells and search for terminologies/Keywords
+> TODO:
+## 3. Export/Download and store spreadsheet data again
+> TODO:
+
+# Privacy Information
+The web-application is completly written in Java-Script and runs locally in your browser.
+
+When importing or exporting spreadsheet data, the data is only stored within your webbrowser and will never be send to our server and always remains locally.
+
+Our server only sends you the open source code of this web application so you can run this tool locally in your browser.
+
+The <u>**only exception**</u> where some of your data is communicated with another server is when you search for terminology in a database. Then only the text of the current cell (or the currently entered text in the terminologyQuery-Dialog) is send to the selected [API-Query](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/Usage.md#Configure-API-Queries) and this server will search for terminology in its database and send the results back to you.
+
 # Data Formats (File Import and Export)
-## JSON-Import/Export
-TODO:
+## JSON-Import/Export Format
+> TODO:
 
-## CSV-Import/Export (without additional Terminology Information)
-TODO:
+## CSV-Import/Export Format (without additional Information)
+> TODO:
 
-## CSV-Import/Export (with additional Terminology Information)
-TODO:
+## CSV-Import/Export Format (with additional Information)
+> TODO:
 
 
 

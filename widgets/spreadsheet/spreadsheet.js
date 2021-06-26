@@ -1,12 +1,4 @@
-/**
- * A Cell that can be used in a specific row and column of a Spreadsheet
- * The Cell object will remember the text that is displayed in the cell
- * and if the cell text is a searched terminology the cell will remember
- * the url and further information that corresponds to the terminology term.
- * This might be useful for later export, so we can add columns behind each cell that
- * contains further terminology information
- * 
- * LICENSE-INFORMATION:
+/* LICENSE-INFORMATION:
    --------------------
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -21,13 +13,30 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ * A cell that can be used in a specific row and column of a Spreadsheet.
+ * The cell object will remember the text that is displayed in the cell
+ * and if the cell text is a searched terminology the cell will remember
+ * the url and further information that corresponds to the terminology term.
+ * This might be useful for later export, so we can add columns behind each cell that
+ * contains further terminology information
+ */
 class SpreadsheetCell {
+   /**
+    * @param {HTML-Element-Reference} domelem - The Object that refers to the cell
+    */
    constructor(domelem) {
       this.domelem = domelem;
       this.info = null;
       this.text = "";
    }
 
+   /**
+    * Updates the HTML-Code of the cell.
+    * Call this after changing info or text of the cell, so the changes
+    * will become visible in the spreadsheet.
+    */
    update() {
       this.domelem.innerHTML = "<div class='spreadsheet-table-td-inner'>" + escapeHtml(this.text) + "&nbsp;</div>";
       if(this.text == "") {
@@ -47,6 +56,13 @@ class SpreadsheetCell {
  * NOTE: Editable Rows and Columns start at Index 1 because Index 0 are the gray letters A,B,C,... or 1,2,3,...
  */
 class Spreadsheet {
+   /**
+    * 
+    * @param {HTML-Element-Reference} domelem - The main div-Element of the spreadsheet where this class will generatte HTML-Code
+    * @param {integer} rows - how many rows you desire to have in vertical direction
+    * @param {integer} cols - how many columns you desire to have in horizontal direction
+    * @param {event-function} onCellClickEvent - what should happen if you click on a cell
+    */
    constructor(domelem, rows, cols, onCellClickEvent) {
       this.domelem = domelem;
       this.table = null;
@@ -60,12 +76,22 @@ class Spreadsheet {
       this.reset();
    }
 
+   /**
+    * discards all current changes and creates a new empty spreadsheet with
+    * rows many rows and cols many columns
+    * @param {integer} rows - how many rows you desire to have in vertical direction
+    * @param {integer} cols - how many columns you desire to have in horizontal direction
+    */
    createNewSpreadsheet(rows, cols) {
       this.rows = rows;
       this.cols = cols;
       this.reset();
    }
 
+   /**
+    * just clears the current spreadsheet but does not change number of columns or rows
+    * also see createNewSpreadsheet(rows, cols)
+    */
    reset() {
       var that = this;
       // Clear HTML-Code and Elements in main domelement where we have access to write our table
@@ -127,6 +153,15 @@ class Spreadsheet {
       this.selectCells([[2,2],[2,2]])
    }
 
+   /**
+    * Has to be used in the global key-Event-Handler in main.js
+    * You can call this method with the current key event
+    * to enable the ability to control things in this spreadsheet with your keyboard
+    * If a dialog is currently visible over the spreadsheet that currently has the focus,
+    * then make sure that for this case this method is not called.
+    * 
+    * @param {event-object} event - key press event
+    */
    keyEventHandler(event) {
       var newSelection = JSON.parse(JSON.stringify(this.selection));
       if (event.keyCode === 37) { // event.preventDefault(); // "Left"   (Cancel the default action, if needed)
@@ -160,6 +195,15 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * Used for selecting cells by mousedown, drag and select and mouseup
+    * Creates an event-function that is called by a spreadsheet-cell when you raise
+    * the mouse-down-event.
+    * 
+    * @param {integer} row - current row of the cell that raises the event returned by this method
+    * @param {integer} col - current column of the cell that raises the event returned by this method
+    * @returns a specific event-function for the cell that raises this specific event
+    */
    selectEventStartGenerator(row, col) {
       var that = this;
       return function() {
@@ -169,6 +213,15 @@ class Spreadsheet {
          that.selectCells(that.selection);
       };
    }
+   /**
+    * Used for selecting cells by mousedown, drag and select and mouseup
+    * Creates an event-function that is called by a spreadsheet-cell when you raise
+    * the mouse-enter/leave-event.
+    * 
+    * @param {integer} row - current row of the cell that raises the event returned by this method
+    * @param {integer} col - current column of the cell that raises the event returned by this method
+    * @returns a specific event-function for the cell that raises this specific event
+    */
    selectEventUpdateGenerator(row, col) {
       var that = this;
       return function() {
@@ -188,6 +241,15 @@ class Spreadsheet {
          }
       };
    }
+   /**
+    * Used for selecting cells by mousedown, drag and select and mouseup
+    * Creates an event-function that is called by a spreadsheet-cell when you raise
+    * the mouse-up-event.
+    * 
+    * @param {integer} row - current row of the cell that raises the event returned by this method
+    * @param {integer} col - current column of the cell that raises the event returned by this method
+    * @returns a specific event-function for the cell that raises this specific event
+    */
    selectEventEndGenerator(row, col) {
       var that = this;
       return function() {
@@ -208,8 +270,9 @@ class Spreadsheet {
    }
 
    /**
+    * Selects cells by remembering the selecting and drawing a blue border around selected cells
     * 
-    * @param {} selectionArea 
+    * @param {array} selectionArea - list in format [[rowStart, colStart],[rowEnd, colEnd]]
     */
    selectCells(selectionArea) {
       this.unmarkCellsSelected();
@@ -217,18 +280,10 @@ class Spreadsheet {
       this.fixSelection();
       this.markCellsSelected();
    }
-
-   unmarkCellsSelected() {
-      for(var r=this.selection[0][0]; r<=this.selection[1][0]; r++) {
-         for(var c=this.selection[0][1]; c<=this.selection[1][1]; c++) {
-            this.cells[r][c].domelem.style.borderTop = "";
-            this.cells[r][c].domelem.style.borderBottom = "";
-            this.cells[r][c].domelem.style.borderLeft = "";
-            this.cells[r][c].domelem.style.borderRight = "";
-            this.cells[r][c].domelem.getElementsByClassName("spreadsheet-table-td-inner")[0].style.backgroundColor = "";
-         }
-      }
-   }
+   /**
+    * fixes an invalid selection if a Start-value is larger than the end-value
+    * This can occur when selecting cells from right bottom into top left direction with the mouse
+    */
    fixSelection() {
       var rowStart = this.selection[0][0];
       var colStart = this.selection[0][1];
@@ -257,6 +312,25 @@ class Spreadsheet {
 
       this.selection = [[rowStart,colStart],[rowEnd,colEnd]];
    }
+
+   /**
+    * removes the visible border around previously selected cells
+    */
+   unmarkCellsSelected() {
+      for(var r=this.selection[0][0]; r<=this.selection[1][0]; r++) {
+         for(var c=this.selection[0][1]; c<=this.selection[1][1]; c++) {
+            this.cells[r][c].domelem.style.borderTop = "";
+            this.cells[r][c].domelem.style.borderBottom = "";
+            this.cells[r][c].domelem.style.borderLeft = "";
+            this.cells[r][c].domelem.style.borderRight = "";
+            this.cells[r][c].domelem.getElementsByClassName("spreadsheet-table-td-inner")[0].style.backgroundColor = "";
+         }
+      }
+   }
+   /**
+    * called by selectCells() and
+    * draws a blue border around selected cells
+    */
    markCellsSelected() {
       var rowStart = this.selection[0][0];
       var colStart = this.selection[0][1];
@@ -293,11 +367,12 @@ class Spreadsheet {
    }
 
    /**
+    * Set data (text and optional additional background information) to a single cell
     * 
-    * @param {Cell Index starting at 1 (not 0)} x 
-    * @param {Cell Index starting at 1 (not 0)} y 
-    * @param {Text that you want to write to the cell} text 
-    * @param {Additional JSON-Dict that can optionally set that will be stored but not displayed} info 
+    * @param {integer} x - column of cell NOTE: Index starting at 1 (not 0)
+    * @param {integer} y - row    of cell NOTE: Index starting at 1 (not 0)
+    * @param {string} text - Text that you want to write to the cell
+    * @param {any object} info - "null" or additional object that can (optionally) be assigned set that will be stored but not displayed
     */
    setCellValue(x, y, text, info) {
       if(y > 0 && y <= this.cells.length && x > 0 && x <= this.cells[0].length) {
@@ -309,6 +384,13 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * Same as setCellValue(x, y, text, info) but sets the data
+    * to all currently selected cells
+    * 
+    * @param {string} text - Text that you want to write to the cell
+    * @param {any object} info - "null" or additional object that can (optionally) be assigned set that will be stored but not displayed
+    */
    setCellValueToSelectedCells(text, info) {
       for(var r=this.selection[0][0]; r<=this.selection[1][0]; r++) {
          for(var c=this.selection[0][1]; c<=this.selection[1][1]; c++) {
@@ -319,6 +401,13 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * Used for labelling columns different as rows and converts an
+    * Integer 1,2,3,... to a latin letter A,B,...,Y,Z,AA,AB,...
+    * 
+    * @param {integer} num - Any Integer Number >= 1
+    * @returns a string of the letter(s)
+    */
    num2Alphabet(num) {
       num -= 1;
       var txt = "";
@@ -332,6 +421,9 @@ class Spreadsheet {
       return txt;
    }
 
+   /**
+    * clears the content of the currently selected cells
+    */
    deleteCellContent() {
       for(var r=this.selection[0][0]; r<=this.selection[1][0]; r++) {
          for(var c=this.selection[0][1]; c<=this.selection[1][1]; c++) {
@@ -342,6 +434,13 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * called by uploading a file by clicking on "Load JSON"-Button
+    * reads in the text of the file that the user selected in the upload dialog
+    * and calls importJSON() for further data procession.
+    * 
+    * @param {event-Object} event - that is raised by a file upload
+    */
    importJSONFile(event) {
       var that = this;
       var uploadFile = event.target.files[0];
@@ -352,6 +451,13 @@ class Spreadsheet {
       reader.readAsText(uploadFile, "utf8");
    }
 
+   /**
+    * called by uploading a file by clicking on "Load CSV"-Button
+    * reads in the text of the file that the user selected in the upload dialog
+    * and calls importCSV() for further data procession.
+    * 
+    * @param {event-Object} event - that is raised by a file upload
+    */
    importCSVFile(event) {
       var that = this;
       var uploadFile = event.target.files[0];
@@ -362,6 +468,13 @@ class Spreadsheet {
       reader.readAsText(uploadFile, "utf8");
    }
 
+   /**
+    * called by uploading a file by clicking on "Load CSV (+ Term-Info)"-Button
+    * reads in the text of the file that the user selected in the upload dialog
+    * and calls importCSV() for further data procession.
+    * 
+    * @param {event-Object} event - that is raised by a file upload
+    */
    importCSVTermFile(event) {
       var that = this;
       var uploadFile = event.target.files[0];
@@ -372,6 +485,12 @@ class Spreadsheet {
       reader.readAsText(uploadFile, "utf8");
    }
 
+   /**
+    * reads and parses the JSON-string to apply the JSON-encoded data to the current spreadsheet.
+    * The number of rows and columns is automatically set to the number or rows and cells described by the JSON-file
+    * 
+    * @param {JSON as string} filecontent - the string that describes the spreadsheet in JSON-Format
+    */
    importJSON(filecontent) {
       var jsoncells = JSON.parse(filecontent);
 
@@ -389,9 +508,11 @@ class Spreadsheet {
    /**
     * Import Text in CSV-Format and apply to spreadsheet
     * NOTE: Comments in CSV-Format are currently NOT supported
+    * Each row is separated by a new-line "\n" and each column is seperated per default by a semicolon ";"
+    * If there is additional info stored in the CSV-File for each cell, then each second row contains these info as JSON-Dicts
     * 
-    * @param {the csv text as string that should be imported} text 
-    * @param {boolean true/false if every second row contains JSON-Dicts that describe additional Info for cells} importInfo 
+    * @param {string} text - the string that describes the spreadsheet in CSV-Format
+    * @param {boolean} importInfo - true/false if every second row contains JSON-Dicts that describe additional Info for cells
     */
    importCSV(text, importInfo) {
       var SEPARATOR = ";";
@@ -453,6 +574,13 @@ class Spreadsheet {
       }
    }
 
+   /**
+    * Exports the spreadsheet in CSV-Format and creates a downloadable file that can be loaded e.g. by Microsoft-Excel or Libre-Office
+    * Each row is separated by a new-line "\n" and each column is seperated per default by a semicolon ";"
+    * If there is additional info stored in the CSV-File for each cell, then each second row contains these info as JSON-Dicts
+    * 
+    * @param {boolean} exportInfo - true/false if every second row contains JSON-Dicts that describe additional Info for cells
+    */
    exportCSV(exportInfo) {
       var data = "";
       for (var row = 1; row < this.cells.length; row++) {
@@ -483,6 +611,13 @@ class Spreadsheet {
       this.createDownloadableFile("Spreadsheet.csv", data, "csv");
    }
 
+   /**
+    * Exports the spreadsheet in JSON-Format and creates a downloadable file that can be easily processed by Python
+    * Each row is separated by a new-line "\n" and each column is seperated per default by a semicolon ";"
+    * If there is additional info stored in the CSV-File for each cell, then each second row contains these info as JSON-Dicts
+    * 
+    * @param {boolean} exportInfo - true/false if every second row contains JSON-Dicts that describe additional Info for cells
+    */
    exportJSON() {
       var jsoncells = [];
 
@@ -501,6 +636,14 @@ class Spreadsheet {
       this.createDownloadableFile("Spreadsheet.json", data, "json");
    }
 
+   /**
+    * Let JavaScript locally create a "virtual" file that you can download from your browser and store on your pc.
+    * This method is a helper method called by export-methods that need to create a downloadable file after creating the file data.
+    * 
+    * @param {string} filename - name of the file (with file extension) that JavaScript should create for a download
+    * @param {string} data - data that should be contained in the file
+    * @param {string} type - file type
+    */
    createDownloadableFile(filename, data, type) {
       var file = new Blob([data], {type: type});
       if (window.navigator.msSaveOrOpenBlob) // IE10+

@@ -6,9 +6,13 @@ Feel free to try out our tool at [http://mosd.cuwolf.de](http://mosd.cuwolf.de)
 
 TerminologySpreadsheet is a simple Web-Application for editing Spreadsheet-Tables with optional Terminology-Search Feature.
 
-## More Information
-- [**Information for webapplication User**](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/Usage.md)
+## More Information for ...
+- [**USER** of the web-application](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/Usage.md)
 
-- [**Information for Server-Admins**](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/InstallAndSetup.md)
+- [**SERVER-ADMINS** and hosting this page](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/InstallAndSetup.md)
 
-- [**Information for software developer**](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/Developer.md)
+- [**SOFTWARE DEVELOPER** and this source code](https://github.com/cuwolf-de/TerminologySpreadsheet/tree/main/wiki/Developer.md)
+
+## Known Bugs
+Please have in mind currently [**open bugs**](https://github.com/cuwolf-de/TerminologySpreadsheet/issues) or add a new bug if you found one there.
+We hope that we find time to solve them :-).
