@@ -107,7 +107,7 @@
       </div>
     </nav>
     
-    <!-- This is a modal that will be displayed to enter and search a terminology or keyword for a cell  -->
+    <!-- TerminologyQuery-Dialog is a modal that will be displayed to enter and search a terminology or keyword for a cell  -->
     <div id="terminologyQuery" class="modalContainer" style="display: none;">
       <div class="modalElem" style="padding-left: 0px; padding-right: 0px;">
         <div class="container-fluid">
@@ -357,7 +357,7 @@
                                 paste from clipboard (IMPLEMENT !)
                               </td>
                             </tr>
-          
+
                           </tbody>
                         </table>
                       </div>
@@ -413,8 +413,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 text-center mt-4">
-              <button class="btn btn-primary" onclick="hideHelpTab();" type="button">
+            <div class="col-12 text-center mt-2">
+              <a class="btn btn-outline-secondary d-block mx-auto" href="https://github.com/cuwolf-de/TerminologySpreadsheet#terminologyspreadsheet" target="_blank" rel="noopener noreferrer">
+                <svg class="bi" width="16" height="16" fill="currentColor"><use href="widgets/icons/bootstrap-icons.svg#github"></use></svg> More help at our GitHub-Page
+              </a>
+              <button class="btn btn-primary mt-3" onclick="hideHelpTab();" type="button">
                 Ok
               </button>
             </div>

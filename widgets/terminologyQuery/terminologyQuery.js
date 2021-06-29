@@ -122,8 +122,14 @@ class TerminologyQuery {
             that.resetQueryAPIs();
          }
       }
-      xhttpSearchReq.open("GET", "/widgets/terminologyQuery/defaultQueryAPIs.json", false);
-      xhttpSearchReq.send();
+      try {
+         xhttpSearchReq.open("GET", "/widgets/terminologyQuery/defaultQueryAPIs.json", false);
+         xhttpSearchReq.send();
+      } catch {
+         // If the XML-Query fails we have this backup but we should only end here if we test the index.html locally due to Cross-Origin-Policy at local file structure
+         that.QUERY_APIS_BACKUP = "[{\"name\" : \"gfbio : suggest (backup Query-API)\", \"apiURL\"  : \"https://terminologies.gfbio.org/api/terminologies/suggest?query={{searchTerm}}&limit=30\", \"results\" : \"results\", \"label\"   : \"label\", \"source\"  : \"sourceTerminology\"}]";
+         that.resetQueryAPIs();
+      }
    }
 
    /**
