@@ -18,22 +18,59 @@ The <u>**only exception**</u> where some of your data is communicated with anoth
 
 # Data Formats (File Import and Export)
 ## JSON-Import/Export Format
+**Export: Save as JSON**
 
+If you want to process the data further with python you might want to save them directly as JSON to load them in python.
+The JSON format is a list of rows, each row it self is a list of cell-Objects `cell(row,column)` again.
+```
+[
+   [cell(1,1), cell(1,2), ...],
+   [cell(2,1), cell(2,2), ...],
+   ...
+]
+```
+Each `cell(row,column)` is it self a JSON-dict in the format.
+```JSON
+{
+   "text": "visible cell text",
+   "info": null
+}
+```
+The cell-Object contains the visible entered text of the cell as string in the attribute `text` and additional terminology information in the attribute `info` if a terminology was searched and entered to the cell. If no terminology was entered the `info`-attribute remains `null`.
+An example for a cell-object with entered terminology-info is:
+```JSON
+{
+   "text": "Canis lupus",
+   "info": {
+      "label": "Canis lupus",
+      "uri": "http://terminologies.gfbio.org/ITIS/Taxa_180596",
+      "sourceTerminology": "ITIS"
+   }
+}
+```
+
+**Import: Load JSON**
+
+Existing JSON-Files 
 
 ## CSV-Import/Export Format (without additional Information)
-Export: Save as CSV (text only)
+**Export: Save as CSV (text only)**
+
 Each column data gets exported separated by semicolons, new lines are induced by "\n". Each row / column represents a row / column of the spreadsheet. 
 This data fomat can easily be used to import in Excel or LibreOffice. 
 
-Import: Load CSV
+**Import: Load CSV**
+
 Existing csv files can be uploaded via "Load CSV". It is necessary that the data is separated by semicolons, other separators are not supported.
 
 ## CSV-Import/Export Format (with additional Information)
-Export: Save as CSV (+ Term-Info)
-The data gets exported separated by semicolons in csv file format. The row below the cell data contains addidional Information about the terminology in form of a JSON dictionary. Thus every second row (odd row numbers) contains the terminologies which have been inserted in the online editor. Every other second row (even row numbers) contains additional Information about the terminology in form of a JSON dictionary. As example, if one termniology has been inserted in the online editor, the download file contains the terminology at the chosen position and the cell below is filled with the JSON dictionary. 
+**Export: Save as CSV (+ Term-Info)**
+
+The data gets exported separated by semicolons in csv file format. The row below the cell data contains addidional Information about the terminology in form of a JSON dictionary (See `info`-attribute in section [JSON-Import/Export Format](#-JSON-Import-Export-Format)). Thus every second row (odd row numbers) contains the terminologies which have been inserted in the online editor. Every other second row (even row numbers) contains additional Information about the terminology in form of a JSON dictionary. As example, if one termniology has been inserted in the online editor, the download file contains the terminology at the chosen position and the cell below is filled with the JSON dictionary. 
 > Note: The cell below is only filled, if the user entered a terminology. For example, if no terminology has been entered in the whole row, the row below exists but all cell values in this row are empty strings.
 
-Import: Load CSV (+Term-Info)
+**Import: Load CSV (+Term-Info)**
+
 An exported file in with terminology inormation can be uploaded again. Therefore the file format has to match with the download file format. So that the row below the terminologies contains the additional information in Form of a JSON dictionary in the cell below the terminology.
 
 
