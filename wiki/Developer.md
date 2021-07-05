@@ -12,13 +12,13 @@
 
    - **/spreadsheet**
 
-      The Object that organizes the spreadsheet cells, can perform import and export of the whole spreadsheet as file and many more functions.
+      The object that organizes the spreadsheet cells, can perform import and export of the whole spreadsheet as file and many more functions.
       
       The HTML-Code of the Spreadsheet is created dynamically and is applied to a single, empty div-Element in index.html. So you will not find HTML-Code of the Grid in index.html .
 
    - **/terminologyQuery**
    
-      The Object that is responsible for the Terminology-Search-Dialog and that performs API-Requests and writes the searched keywords into the spreadsheet.
+      The object that is responsible for the Terminology-Search-Dialog and that performs API-Requests and writes the searched keywords into the spreadsheet.
       
       The HTML-Code of the Dialog can be found in index.html.
 
@@ -31,7 +31,7 @@
 For further information please look at the comments in the source code.
 
 # Caching of API-Queries
-Currently Caching of previous API-Queries in JavaScript is not implemented. Each terminology-search will result in an JavaScript XML-Request that is performed.
+Currently caching of previous API-Queries in JavaScript is not implemented. Each terminology-search will result in an JavaScript XML-Request that is performed.
 
 # JavaScript Tricks and Hacks that are all over the Source Code
 These are (maybe not so intuitive) hacks to fix problems we had with JavaScript. If you have a better idea to solve these problems feel free to comment and let us know.
