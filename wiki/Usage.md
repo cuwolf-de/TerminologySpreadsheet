@@ -17,19 +17,20 @@ The <u>**only exception**</u> where some of your data is communicated with anoth
 
 # Data Formats (File Import and Export)
 ## JSON-Import/Export Format
-The file can be downloaded as a JSON Dictionary which is a list of lists conteining the Information about the data
+
 
 ## CSV-Import/Export Format (without additional Information)
 Export: Save as CSV (text only)
-The cell data gets exported separated by semicolons. Each row / column represents a row / column of the Spreadsheet. 
-This data fomat can easily be used to import in Excel. 
+Each column data gets exported separated by semicolons, new lines are induced by "\n". Each row / column represents a row / column of the spreadsheet. 
+This data fomat can easily be used to import in Excel or LibreOffice. 
 
 Import: Load CSV
 Existing csv files can be uploaded via "Load CSV". It is necessary that the data is separated by semicolons, other separators are not supported.
 
 ## CSV-Import/Export Format (with additional Information)
 Export: Save as CSV (+ Term-Info)
-The data gets exported separated by semicolons in csv file format. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the terminologies which have been inserted in the online editor. Every other second row contains additional Information about the terminology in form of a JSON dictionary. As example, if one termniology has been inserted in the online editor, the download file contains the terminology at the chosen position and the cell below one cell is filled with the JSON dictionary.
+The data gets exported separated by semicolons in csv file format. The row below the cell data contains addidional Information about the terminology in form of a JSON dictionary. Thus every second row (odd row numbers) contains the terminologies which have been inserted in the online editor. Every other second row (even row numbers) contains additional Information about the terminology in form of a JSON dictionary. As example, if one termniology has been inserted in the online editor, the download file contains the terminology at the chosen position and the cell below is filled with the JSON dictionary. 
+> Note: The cell below is only filled, if the user entered a terminology. For example, if no terminology has been entered in the whole row, the row below exists but all cell values in this row are empty strings.
 
 Import: Load CSV (+Term-Info)
 An exported file in with terminology inormation can be uploaded again. Therefore the file format has to match with the download file format. So that the row below the terminologies contains the additional information in Form of a JSON dictionary in the cell below the terminology.
