@@ -21,15 +21,20 @@ The file can be downloaded as a JSON Dictionary which is a list of lists contein
 
 ## CSV-Import/Export Format (without additional Information)
 Export: Save as CSV (text only)
-The cell data gets exported separated by semicolons. Each row represents a row of the Spreadsheet. 
-This Data Fomat can easily be used to import in Excel. 
+The cell data gets exported separated by semicolons. Each row / column represents a row / column of the Spreadsheet. 
+This data fomat can easily be used to import in Excel. 
 
 Import: Load CSV
 Existing csv files can be uploaded via "Load CSV". It is necessary that the data is separated by semicolons, other separators are not supported.
 
 ## CSV-Import/Export Format (with additional Information)
 Export: Save as CSV (+ Term-Info)
-The cell data gets exported separated by semicolons. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the data from the online editor. And every other second row contains additional Information.
+The data gets exported separated by semicolons in csv file format. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the terminologies which have been inserted in the online editor. Every other second row contains additional Information about the terminology in form of a JSON dictionary. As example, if one termniology has been inserted in the online editor, the download file contains the terminology at the chosen position and the cell below one cell is filled with the JSON dictionary.
+
+Import: Load CSV (+Term-Info)
+An exported file in with terminology inormation can be uploaded again. Therefore the file format has to match with the download file format. So that the row below the terminologies contains the additional information in Form of a JSON dictionary in the cell below the terminology.
+
+
 
 
 
