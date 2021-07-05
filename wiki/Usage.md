@@ -17,13 +17,14 @@ The <u>**only exception**</u> where some of your data is communicated with anoth
 
 # Data Formats (File Import and Export)
 ## JSON-Import/Export Format
-> TODO:
+
 
 ## CSV-Import/Export Format (without additional Information)
-> TODO:
+The cell data gets exported separated by semicolons. Each row represents a row of the Spreadsheet. 
+This Data Fomat can easily be used to import in Excel.
 
 ## CSV-Import/Export Format (with additional Information)
-> TODO:
+The cell Data gets exported separated by semicolons. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the Data from the online Editor. And every other second row contains additional Information.
 
 
 
