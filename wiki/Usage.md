@@ -17,14 +17,19 @@ The <u>**only exception**</u> where some of your data is communicated with anoth
 
 # Data Formats (File Import and Export)
 ## JSON-Import/Export Format
-
+The file can be downloaded as a JSON Dictionary which is a list of lists conteining the Information about the data
 
 ## CSV-Import/Export Format (without additional Information)
+Export: Save as CSV (text only)
 The cell data gets exported separated by semicolons. Each row represents a row of the Spreadsheet. 
-This Data Fomat can easily be used to import in Excel.
+This Data Fomat can easily be used to import in Excel. 
+
+Import: Load CSV
+Existing csv files can be uploaded via "Load CSV". It is necessary that the data is separated by semicolons, other separators are not supported.
 
 ## CSV-Import/Export Format (with additional Information)
-The cell Data gets exported separated by semicolons. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the Data from the online Editor. And every other second row contains additional Information.
+Export: Save as CSV (+ Term-Info)
+The cell data gets exported separated by semicolons. The row below the cell Data contains addidional Information about the Terminology in form of a JSON-Dict. So every second row contains the data from the online editor. And every other second row contains additional Information.
 
 
 
