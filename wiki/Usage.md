@@ -1,8 +1,9 @@
 # Default usage of the web application
-## 1. Import/Upload existing CSV-file or create new spreadsheet
-> TODO:
+## 1. Create new spreadsheet or Import/Upload existing CSV-file
+You can create a new spreadsheet by clicking on "File" on the left-hand side and select "Save as CSV (text only)" or "Save as Csv (+ Term-Info)". If you want to import/upload an existing CSV-file you have to click on "File" on the left-hand side and select "Load CSV" or "Load CSV (+ Term-Info)". The Term-Info are the information about the searched terminology which are offered by the different sources. 
+
 ## 2. Edit cells and search for terminologies/Keywords
-> TODO:
+By double clicking on any desired cell on the presented spreadsheet a pop up window opens. There you can enter the terminology you want to search for and select "apply" or "search". When selecting "apply" the terminology is filled in the cell. When selecting "search" you see the suitable terminology suggestions with the related source below. Under "Actions" you can now select "info" or "apply". "info" shows an other pop up window where you can read the information provided by the chosen source. When you click on "apply" the provided information gets safed in the cell, the pop up window closes and the cell gets an yellow background layer.
 ## 3. Export/Download and store spreadsheet data again
 > TODO:
 
