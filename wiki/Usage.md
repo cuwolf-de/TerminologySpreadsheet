@@ -3,9 +3,11 @@
 To start with the web application you can directly start with the presented empty spreadsheet or click on "File" on the left-hand side and select "New" for creating a new spreadsheet. You have also the option to import an existing CSV-File by clicking on "Load CSV" or "Load CSV (+ Term-Info)". The Term-Info are the information about the searched terminology which are offered by the different sources.
 
 ## 2. Edit cells and search for terminologies/Keywords
-By double clicking (or pressing F2) on any desired cell on the presented spreadsheet a pop up window opens. There you can enter the terminology you want to search for or any other text and select "apply" or "search". When selecting "apply" the terminology or text is filled in the cell. When selecting "search" you see the suitable terminology suggestions with the related source below. Under "Actions" you can now select "info" or "apply". "info" shows an other pop up window where you can read the information provided by the chosen source. When you click on "apply" the provided information gets safed in the cell, the pop up window closes and the cell gets an yellow background layer.
+By double clicking (or pressing F2) on any desired cell on the presented spreadsheet a pop-up window opens. There you can enter the terminology you want to search for or any other text and select "apply" or "search". When selecting "apply" the terminology or text is filled in the cell. When selecting "search" you see the suitable terminology suggestions with the related source below. Under "Actions" you can now select "info" or "apply". "info" shows an other pop-up window where you can read the information provided by the chosen source. When you click on "apply" the provided information gets safed in the cell, the pop-up window closes and the cell gets an yellow background layer.
 ## 3. Export/Download and store spreadsheet data
 You can export/download a spreadsheet by clicking on "File" on the left-hand side and select "Save as CSV (text only)" or "Save as CSV (+ Term-Info)".
+## 4. Shortcuts
+The web application offers some shortcuts to improve the workflow. You can find them under "Help". The presented pop-up window lists the shortcuts you can use in the spreadsheet environment and in the terminology query/search environment. 
 
 # Privacy Information
 The web-application is completly written in Java-Script and runs locally in your browser.
