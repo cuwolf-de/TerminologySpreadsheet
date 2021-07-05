@@ -22,7 +22,7 @@ The <u>**only exception**</u> where some of your data is communicated with anoth
 
 If you want to process the data further with python you might want to save them directly as JSON to load them in python.
 The JSON format is a list of rows, each row it self is a list of cell-Objects `cell(row,column)` again.
-```JSON
+```
 [
    [cell(1,1), cell(1,2), ...],
    [cell(2,1), cell(2,2), ...],
