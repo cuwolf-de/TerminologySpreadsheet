@@ -20,7 +20,7 @@ We hope that we find time to solve them :-).
 ## Some extra infos about this project
 - **About this project**
    
-   TerminologySpreadsheet was developed as part of a small project for the seminar "Management of Scientific Data" (in short MOSD) at our university.
+   TerminologySpreadsheet was developed as part of a small project for the seminar "Management of Scientific Data" (in short MOSD) at the Friedrich-Schiller-Universität Jena.
 
 - **About the commits authored by "MOSD Projekt Gruppe"**
 
